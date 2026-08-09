@@ -11,4 +11,5 @@ const batch = await c.getEntries(["pages/home", "pages/about"]);
 
 Empty-clear: missing key → `{ data: null, empty: true }` (HTTP 200).
 Revalidate: register HTTPS webhook at create; Guaso POSTs `{ secret, tags, siteId?, guasoVersion? }`.
+Blocks UI: install kit via shadcn registry `@guaso` (https://github.com/guaso-ai/guaso-blocks) — BlockZone + canonical block types. ⛔ hardcode sections / invent props outside content schema.
 ⛔ browser / client components. ⛔ write API. ⛔ Neon credentials.
