@@ -30,11 +30,20 @@ npm view @guaso-ai/content version   # expect 0.1.0
 
 ## Releases siguientes (CI)
 
+Happy path (clon local al día, en `main`):
+
 ```bash
-git tag v0.1.1   # bump version in package.json first
-git push origin v0.1.1
+python scripts/release.py                 # dry-run: bump propuesto
+python scripts/release.py --apply --push  # commit chore(release) + tag vX.Y.Z + push
 # GHA Publish npm → OIDC → npm publish
 ```
+
+⛔ `npm publish` local en happy path. ⛔ Automation / long-lived `NPM_TOKEN`.
+Passkey/OTP solo first-publish o recover de acceso humano.
+
+El workflow guarda `tag vX.Y.Z` ↔ `package.json#version` antes de publicar.
+
+Agent flow (monorepo): `agents/flows/sdk-work.md` — features vía `template_flow.py`; release = este script.
 
 Requisitos del workflow: `permissions.id-token: write`, npm CLI ≥ 11.5.1, Node ≥ 22.14, runner GitHub-hosted.
 
