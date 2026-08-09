@@ -38,6 +38,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Guard tag matches package.json version
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "tag '${GITHUB_REF_NAME}' != package.json version '${PKG}'" >&2
+            exit 1
+          fi
+
       - name: Publish
         # Auth via OIDC trusted publisher — do not set NODE_AUTH_TOKEN
         run: npm publish --access public
