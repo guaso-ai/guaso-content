@@ -1,0 +1,55 @@
+{
+  "name": "@guaso/content",
+  "version": "0.1.0",
+  "description": "Guaso Content SDK — server-only read client for headless content",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "llms.txt",
+    "llms-full.txt",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guaso-ai/guaso-content.git"
+  },
+  "homepage": "https://github.com/guaso-ai/guaso-content#readme",
+  "bugs": {
+    "url": "https://github.com/guaso-ai/guaso-content/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "keywords": [
+    "guaso",
+    "content",
+    "headless",
+    "server-only"
+  ]
+}

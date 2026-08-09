@@ -1,0 +1,10 @@
+@guaso/content — notices and disclaimers
+========================================
+
+1. Server-only. Never put the content token in the browser or a client bundle.
+2. This SDK does not grant Neon access or HTTP write APIs.
+3. You need a Guaso headless site + content token issued by Guaso (capability + chat).
+4. Software is provided AS IS, without warranty or SLA for the SDK itself.
+5. “Guaso” is a trademark; nominative use is OK and does not imply endorsement.
+6. The MIT license of this package is not Guaso’s Terms of Service or the Guaso Content
+   capability contract. See https://guaso.link/legal.

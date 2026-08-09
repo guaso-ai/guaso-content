@@ -1,0 +1,14 @@
+# Guaso Content SDK (@guaso/content)
+
+Server-only. Env: GUASO_SITE_ID, GUASO_CONTENT_TOKEN. Optional GUASO_API_BASE (default https://api.guaso.link).
+
+```ts
+import { createClient } from "@guaso/content";
+const c = createClient({ siteId: process.env.GUASO_SITE_ID!, token: process.env.GUASO_CONTENT_TOKEN! });
+const e = await c.getEntry("pages/home"); // { data, empty }
+const batch = await c.getEntries(["pages/home", "pages/about"]);
+```
+
+Empty-clear: missing key → `{ data: null, empty: true }` (HTTP 200).
+Revalidate: register HTTPS webhook at create; Guaso POSTs `{ secret, tags, siteId?, guasoVersion? }`.
+⛔ browser / client components. ⛔ write API. ⛔ Neon credentials.

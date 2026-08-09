@@ -1,0 +1,52 @@
+# Guaso Content — full integration prompt (llms-full)
+
+## Product
+Guaso Content = headless content plane. Owner edits via Guaso chat (WhatsApp/Telegram). Your Next/v0 app hosts UI and reads content via this SDK.
+
+## Contract
+- Package: `@guaso/content` (public npm; monetization is Guaso capability + token, not the package)
+- Runtime: **server-only** (RSC, Route Handlers, Node). Never import in `"use client"` or browser bundles.
+- Auth: Bearer token (`gct_…`) from Guaso chat once at site create. Store in server env `GUASO_CONTENT_TOKEN`. Site id in `GUASO_SITE_ID`.
+- Base URL: `https://api.guaso.link` (override with `baseUrl` / `GUASO_API_BASE` for staging).
+
+## API
+- `GET /api/v1/content/entries/{content_key}`
+- `POST /api/v1/content/entries/batch` body `{ "keys": ["pages/home", ...] }`
+- Response entry: `{ siteId, guasoVersion, key, contentType, data, empty }`
+- Empty-clear: key absent → `data: null`, `empty: true`, status 200
+- 401 invalid token; 429 rate limit; 503 if rate-limit backend unavailable (fail-closed)
+
+## SDK
+```ts
+import { createClient } from "@guaso/content";
+
+export const content = createClient({
+  siteId: process.env.GUASO_SITE_ID!,
+  token: process.env.GUASO_CONTENT_TOKEN!,
+  // baseUrl: process.env.GUASO_API_BASE,
+});
+
+const home = await content.getEntry("pages/home");
+if (home.empty) {
+  // render empty state — do not invent copy
+} else {
+  // home.data is the page object (may include blocks[])
+}
+
+const many = await content.getEntries(["pages/home", "pages/about"]);
+```
+
+## Schema / blocks
+- `guasoVersion` in responses — evolve renderers forward-compat (unknown block type → ignore).
+- Chat can **create** only Guaso catalog block types; custom keys are edit-only (cap 20).
+
+## Revalidate
+Optional webhook URL registered at site create (HTTPS, public IP). Guaso POSTs after publish:
+`{ "secret", "tags": ["content"], "siteId"?, "guasoVersion"? }`.
+Wire your host (Vercel/Netlify/…) to bust cache on that POST. Failures do not roll back Neon writes.
+
+## Anti-patterns
+- Putting token in `NEXT_PUBLIC_*` or client JS
+- Expecting Neon connection string from Guaso
+- Calling write HTTP endpoints (none exist)
+- Generating freeform JSX as the content source of truth (use schema-bound data + your components)
