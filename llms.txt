@@ -1,9 +1,9 @@
-# Guaso Content SDK (@guaso/content)
+# Guaso Content SDK (@guaso-ai/content)
 
 Server-only. Env: GUASO_SITE_ID, GUASO_CONTENT_TOKEN. Optional GUASO_API_BASE (default https://api.guaso.link).
 
 ```ts
-import { createClient } from "@guaso/content";
+import { createClient } from "@guaso-ai/content";
 const c = createClient({ siteId: process.env.GUASO_SITE_ID!, token: process.env.GUASO_CONTENT_TOKEN! });
 const e = await c.getEntry("pages/home"); // { data, empty }
 const batch = await c.getEntries(["pages/home", "pages/about"]);

@@ -1,5 +1,5 @@
 /**
- * @guaso/content — server-only Guaso Content client.
+ * @guaso-ai/content — server-only Guaso Content client.
  * ⛔ Do not import this package in browser / client bundles.
  */
 
@@ -31,7 +31,7 @@ function assertServerOnly(): void {
   // Soft guard: window implies browser. Docs + llms.txt are the hard contract.
   if (typeof globalThis !== "undefined" && "window" in globalThis && (globalThis as { window?: unknown }).window) {
     throw new Error(
-      "@guaso/content is server-only. Do not use the content token in the browser.",
+      "@guaso-ai/content is server-only. Do not use the content token in the browser.",
     );
   }
 }

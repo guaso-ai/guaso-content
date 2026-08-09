@@ -15,7 +15,7 @@ test("package.json publish metadata", () => {
     publishConfig?: { access?: string; registry?: string };
     files?: string[];
   };
-  assert.equal(pkg.name, "@guaso/content");
+  assert.equal(pkg.name, "@guaso-ai/content");
   assert.equal(pkg.license, "MIT");
   assert.equal(pkg.repository?.url, "git+https://github.com/guaso-ai/guaso-content.git");
   assert.equal(pkg.publishConfig?.access, "public");

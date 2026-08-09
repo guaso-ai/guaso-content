@@ -1,4 +1,4 @@
-# Publishing `@guaso/content`
+# Publishing `@guaso-ai/content`
 
 Source of truth: this repo (`guaso-ai/guaso-content`). Automated publish runs on `v*` tags via GitHub Actions (`.github/workflows/publish.yml`).
 
@@ -6,9 +6,9 @@ Source of truth: this repo (`guaso-ai/guaso-content`). Automated publish runs on
 
 These are **not** agent-autonomous:
 
-1. **Claim / create npm org `guaso`** at https://www.npmjs.com/org/create (enable 2FA on the org).
-2. Confirm package name is free: `npm view @guaso/content` should 404 before first publish.
-3. Create a **granular npm access token** with publish permission for `@guaso/content` (or the `guaso` org).
+1. **Claim / create npm org `guaso-ai`** at https://www.npmjs.com/org/create (enable 2FA on the org).
+2. Confirm package name is free: `npm view @guaso-ai/content` should 404 before first publish.
+3. Create a **granular npm access token** with publish permission for `@guaso-ai/content` (or the `guaso-ai` org).
 4. Store the token in **1Password** (vault Guaso) — never commit it, never paste into issues.
 5. Set the GitHub secret (preferred) **or** publish once manually:
    ```bash
@@ -21,8 +21,8 @@ These are **not** agent-autonomous:
    ```
 7. Verify:
    ```bash
-   npm view @guaso/content version   # expect 0.1.0
-   npm view @guaso/content license   # MIT
+   npm view @guaso-ai/content version   # expect 0.1.0
+   npm view @guaso-ai/content license   # MIT
    ```
 
 ## Emergency manual publish (no GHA)
@@ -39,9 +39,9 @@ npm publish --access public
 
 ## Post-publish checklist
 
-- [ ] `npm view @guaso/content` shows `0.1.0`, MIT, repository → this GitHub repo
-- [ ] Fresh install in empty dir: `npm i @guaso/content`
-- [ ] npm package page: https://www.npmjs.com/package/@guaso/content
+- [ ] `npm view @guaso-ai/content` shows `0.1.0`, MIT, repository → this GitHub repo
+- [ ] Fresh install in empty dir: `npm i @guaso-ai/content`
+- [ ] npm package page: https://www.npmjs.com/package/@guaso-ai/content
 - [ ] README disclaimers + MIT badge visible
 
 ## Who owns the token

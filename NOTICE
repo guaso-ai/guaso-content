@@ -1,4 +1,4 @@
-@guaso/content — notices and disclaimers
+@guaso-ai/content — notices and disclaimers
 ========================================
 
 1. Server-only. Never put the content token in the browser or a client bundle.

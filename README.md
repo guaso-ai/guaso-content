@@ -1,20 +1,20 @@
-# @guaso/content
+# @guaso-ai/content
 
 Server-only SDK for Guaso Content (headless). Reads content via Guaso's HTTP API — never Neon `DATABASE_URL`.
 
-[![npm version](https://img.shields.io/npm/v/@guaso/content.svg)](https://www.npmjs.com/package/@guaso/content)
-[![license](https://img.shields.io/npm/l/@guaso/content.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@guaso-ai/content.svg)](https://www.npmjs.com/package/@guaso-ai/content)
+[![license](https://img.shields.io/npm/l/@guaso-ai/content.svg)](./LICENSE)
 
 ## Install
 
 ```bash
-npm i @guaso/content
+npm i @guaso-ai/content
 ```
 
 ## Usage (RSC / route handlers / server)
 
 ```ts
-import { createClient } from "@guaso/content";
+import { createClient } from "@guaso-ai/content";
 
 const client = createClient({
   siteId: process.env.GUASO_SITE_ID!,
