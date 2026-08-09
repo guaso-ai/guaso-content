@@ -39,6 +39,7 @@ const many = await content.getEntries(["pages/home", "pages/about"]);
 ## Schema / blocks
 - `guasoVersion` in responses — evolve renderers forward-compat (unknown block type → ignore).
 - Chat can **create** only Guaso catalog block types; custom keys are edit-only (cap 20).
+- Blocks UI kit: shadcn registry `@guaso` ([guaso-ai/guaso-blocks](https://github.com/guaso-ai/guaso-blocks)) — install `block-zone` + `rich-section` + `cta` together; use `blocksFromEntry` with empty-clear. ⛔ hardcode sections or invent props outside the content schema.
 
 ## Revalidate
 Optional webhook URL registered at site create (HTTPS, public IP). Guaso POSTs after publish:
