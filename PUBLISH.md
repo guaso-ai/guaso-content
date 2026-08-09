@@ -1,49 +1,54 @@
 # Publishing `@guaso-ai/content`
 
-Source of truth: this repo (`guaso-ai/guaso-content`). Automated publish runs on `v*` tags via GitHub Actions (`.github/workflows/publish.yml`).
+Source of truth: this repo (`guaso-ai/guaso-content`). CI publish on `v*` tags uses **npm Trusted Publishing (OIDC)** — no long-lived `NPM_TOKEN`.
 
-## Human gates (Emiliano)
+> npm está restringiendo tokens que bypassean 2FA (Aug 2026 / Jan 2027). No uses Automation tokens para publish en CI.
 
-These are **not** agent-autonomous:
+## First publish (humano, una sola vez)
 
-1. **Claim / create npm org `guaso-ai`** at https://www.npmjs.com/org/create (enable 2FA on the org).
-2. Confirm package name is free: `npm view @guaso-ai/content` should 404 before first publish.
-3. Create a **granular npm access token** with publish permission for `@guaso-ai/content` (or the `guaso-ai` org).
-4. Store the token in **1Password** (vault Guaso) — never commit it, never paste into issues.
-5. Set the GitHub secret (preferred) **or** publish once manually:
-   ```bash
-   gh secret set NPM_TOKEN -R guaso-ai/guaso-content
-   ```
-6. Tag and push to trigger GHA:
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
-7. Verify:
-   ```bash
-   npm view @guaso-ai/content version   # expect 0.1.0
-   npm view @guaso-ai/content license   # MIT
-   ```
-
-## Emergency manual publish (no GHA)
-
-If the secret is not set yet or Actions is unavailable:
+El package tiene que existir en npm antes de poder configurar Trusted Publisher.
 
 ```bash
-npm ci
-npm test
-npm run build
-npm publish --access public
-# uses your local npm login / NODE_AUTH_TOKEN env — do not echo the token
+cd /path/to/guaso-content   # main al día
+npm login                   # @diazemiliano + 2FA
+npm ci && npm test && npm run build
+npm publish --access public # te pide OTP del authenticator — OK
+npm view @guaso-ai/content version   # expect 0.1.0
 ```
 
-## Post-publish checklist
+## Trusted Publisher (después del first publish)
 
-- [ ] `npm view @guaso-ai/content` shows `0.1.0`, MIT, repository → this GitHub repo
-- [ ] Fresh install in empty dir: `npm i @guaso-ai/content`
-- [ ] npm package page: https://www.npmjs.com/package/@guaso-ai/content
-- [ ] README disclaimers + MIT badge visible
+1. Abrí https://www.npmjs.com/package/@guaso-ai/content → **Settings** → **Trusted Publisher**
+2. GitHub Actions:
+   - Organization or user: `guaso-ai`
+   - Repository: `guaso-content`
+   - Workflow filename: `publish.yml` (solo el nombre, con `.yml`)
+   - Allowed actions: **npm publish**
+3. Guardá (2FA interactiva).
+4. Opcional: Publishing access → “Require two-factor authentication and disallow tokens” (recién cuando OIDC ya publicó OK una vez).
+5. Borrá el secret viejo si existe: `gh secret delete NPM_TOKEN -R guaso-ai/guaso-content`
 
-## Who owns the token
+## Releases siguientes (CI)
 
-Emiliano — 1Password vault Guaso. Rotate if leaked. Agents must never invent or commit `NPM_TOKEN`.
+```bash
+git tag v0.1.1   # bump version in package.json first
+git push origin v0.1.1
+# GHA Publish npm → OIDC → npm publish
+```
+
+Requisitos del workflow: `permissions.id-token: write`, npm CLI ≥ 11.5.1, Node ≥ 22.14, runner GitHub-hosted.
+
+## Verify
+
+```bash
+npm view @guaso-ai/content version
+npm view @guaso-ai/content license   # MIT
+mkdir -p /tmp/guaso-content-smoke && cd /tmp/guaso-content-smoke
+npm init -y && npm i @guaso-ai/content
+```
+
+## Who owns what
+
+- Cuenta npm / org `guaso-ai` / 2FA: Emiliano
+- Trusted Publisher config: Emiliano (interactivo)
+- Agents: ⛔ no inventan ni commitean tokens
