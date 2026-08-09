@@ -4,7 +4,7 @@
 Guaso Content = headless content plane. Owner edits via Guaso chat (WhatsApp/Telegram). Your Next/v0 app hosts UI and reads content via this SDK.
 
 ## Contract
-- Package: `@guaso/content` (public npm; monetization is Guaso capability + token, not the package)
+- Package: `@guaso-ai/content` (public npm; monetization is Guaso capability + token, not the package)
 - Runtime: **server-only** (RSC, Route Handlers, Node). Never import in `"use client"` or browser bundles.
 - Auth: Bearer token (`gct_…`) from Guaso chat once at site create. Store in server env `GUASO_CONTENT_TOKEN`. Site id in `GUASO_SITE_ID`.
 - Base URL: `https://api.guaso.link` (override with `baseUrl` / `GUASO_API_BASE` for staging).
@@ -18,7 +18,7 @@ Guaso Content = headless content plane. Owner edits via Guaso chat (WhatsApp/Tel
 
 ## SDK
 ```ts
-import { createClient } from "@guaso/content";
+import { createClient } from "@guaso-ai/content";
 
 export const content = createClient({
   siteId: process.env.GUASO_SITE_ID!,
