@@ -29,6 +29,35 @@ if (home.empty) {
 
 ⛔ Do not use the token in the browser.
 
+## Server-only
+
+This package depends on [`server-only`](https://www.npmjs.com/package/server-only). Importing it from a Next.js Client Component (`"use client"`) **fails the build** (poison). Runtime `assertServerOnly` also throws if `window` is present (Node/Vite/tests without the `react-server` condition).
+
+⛔ Never put `GUASO_CONTENT_TOKEN` in `NEXT_PUBLIC_*` or any client bundle.
+
+Optional ESLint guard (copy-paste — **`npm i` does not configure ESLint**):
+
+```js
+// eslint.config.mjs
+{
+  files: ["**/components/**/*.{ts,tsx}"],
+  rules: {
+    "no-restricted-imports": [
+      "error",
+      {
+        paths: [
+          {
+            name: "@guaso-ai/content",
+            message:
+              "Server-only: importá desde RSC / route handlers, nunca desde Client Components. Token ⛔ NEXT_PUBLIC_*.",
+          },
+        ],
+      },
+    ],
+  },
+}
+```
+
 ## Disclaimers
 
 - **Server-only.** Never put the content token in the browser or a client bundle.

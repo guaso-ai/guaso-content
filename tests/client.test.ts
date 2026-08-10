@@ -15,6 +15,42 @@ test("llms.txt and llms-full.txt exist", () => {
   assert.match(short, /empty/i);
 });
 
+test("poison: entry imports server-only and package depends on it", () => {
+  const index = readFileSync(join(root, "src/index.ts"), "utf8");
+  assert.match(index, /import\s+["']server-only["']/);
+  const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8")) as {
+    dependencies?: Record<string, string>;
+  };
+  assert.equal(pkg.dependencies?.["server-only"], "0.0.1");
+});
+
+test("assertServerOnly throws when window is present", () => {
+  const g = globalThis as { window?: unknown };
+  const prev = g.window;
+  g.window = {};
+  try {
+    assert.throws(
+      () =>
+        createClient({
+          siteId: "s1",
+          token: "gct_test",
+        }),
+      (err: unknown) => {
+        assert.ok(err instanceof Error);
+        assert.match(err.message, /server-only/i);
+        assert.match(err.message, /guaso\.link\/docs\/content/);
+        return true;
+      },
+    );
+  } finally {
+    if (prev === undefined) {
+      delete g.window;
+    } else {
+      g.window = prev;
+    }
+  }
+});
+
 test("getEntry empty-clear", async () => {
   const fetchMock: typeof fetch = async () =>
     new Response(

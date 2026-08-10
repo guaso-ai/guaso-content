@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "node --import tsx --test tests/*.test.ts",
+    "test": "node --import ./tests/register-server-only-mock.mjs --import tsx --test tests/*.test.ts",
     "prepublishOnly": "npm run build"
   },
   "engines": {
@@ -40,6 +40,9 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "server-only": "0.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
