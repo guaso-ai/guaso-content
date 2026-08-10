@@ -5,7 +5,8 @@ Guaso Content = headless content plane. Owner edits via Guaso chat (WhatsApp/Tel
 
 ## Contract
 - Package: `@guaso-ai/content` (public npm; monetization is Guaso capability + token, not the package)
-- Runtime: **server-only** — depends on npm `server-only` (Next Client Component / browser import → **build error**). Runtime assert covers other runtimes. Never import in `"use client"` or browser bundles. ⛔ `GUASO_CONTENT_TOKEN` in `NEXT_PUBLIC_*`.
+- Runtime: **server-only** root entry — depends on npm `server-only` (Next Client Component / browser import → **build error**). Runtime assert covers other runtimes. Never import root in `"use client"` or browser bundles. ⛔ `GUASO_CONTENT_TOKEN` in `NEXT_PUBLIC_*`.
+- Typed schemas (client-safe): `@guaso-ai/content/schemas` — **no** `server-only`. Use for block/template shapes in UI. ⛔ import schemas via package root from Client Components.
 - Optional ESLint `no-restricted-imports` for `@guaso-ai/content` (copy-paste in README) — **`npm i` does not configure ESLint**.
 - Auth: Bearer token (`gct_…`) from Guaso chat once at site create. Store in server env `GUASO_CONTENT_TOKEN`. Site id in `GUASO_SITE_ID`.
 - Base URL: `https://api.guaso.link` (override with `baseUrl` / `GUASO_API_BASE` for staging).
@@ -16,10 +17,13 @@ Guaso Content = headless content plane. Owner edits via Guaso chat (WhatsApp/Tel
 - Response entry: `{ siteId, guasoVersion, key, contentType, data, empty }`
 - Empty-clear: key absent → `data: null`, `empty: true`, status 200
 - 401 invalid token; 429 rate limit; 503 if rate-limit backend unavailable (fail-closed)
+- ⛔ No `listKeys` / enumeration endpoint — pass known keys.
 
 ## SDK
 ```ts
 import { createClient } from "@guaso-ai/content";
+import type { StoreProduct } from "@guaso-ai/content/schemas/templates/store";
+import type { RichSectionData } from "@guaso-ai/content/schemas/blocks";
 
 export const content = createClient({
   siteId: process.env.GUASO_SITE_ID!,
@@ -35,12 +39,14 @@ if (home.empty) {
 }
 
 const many = await content.getEntries(["pages/home", "pages/about"]);
+const products = await content.getEntry<StoreProduct[]>("products/products");
 ```
 
 ## Schema / blocks
 - `guasoVersion` in responses — evolve renderers forward-compat (unknown block type → ignore).
 - Chat can **create** only Guaso catalog block types; custom keys are edit-only (cap 20).
 - Blocks UI kit: shadcn registry `@guaso` ([guaso-ai/guaso-blocks](https://github.com/guaso-ai/guaso-blocks)) — install `block-zone` + `rich-section` + `cta` together; use `blocksFromEntry` with empty-clear. ⛔ hardcode sections or invent props outside the content schema.
+- Canonical block data types: `RichSectionData`, `GalleryData`, `CardsData`, `TestimonialsData`, `CTAData` from `@guaso-ai/content/schemas/blocks`.
 
 ## Revalidate
 Optional webhook URL registered at site create (HTTPS, public IP). Guaso POSTs after publish:
@@ -52,3 +58,4 @@ Wire your host (Vercel/Netlify/…) to bust cache on that POST. Failures do not 
 - Expecting Neon connection string from Guaso
 - Calling write HTTP endpoints (none exist)
 - Generating freeform JSX as the content source of truth (use schema-bound data + your components)
+- Importing package root `@guaso-ai/content` from Client Components (use `/schemas` for types only)

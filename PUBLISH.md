@@ -28,6 +28,11 @@ npm view @guaso-ai/content version   # expect 0.1.0
 4. Opcional: Publishing access → “Require two-factor authentication and disallow tokens” (recién cuando OIDC ya publicó OK una vez).
 5. Borrá el secret viejo si existe: `gh secret delete NPM_TOKEN -R guaso-ai/guaso-content`
 
+## Semver notes
+
+- **0.3.0** (minor): new client-safe `./schemas` (+ `/schemas/blocks`, `/schemas/templates/*`) exports; `ContentEntry<T>` / `getEntry`·`getEntries` generics (default `unknown`). No breaking HTTP/runtime change.
+- Prefer `python scripts/release.py` after merge — ⛔ `npm publish` on the feature branch.
+
 ## Releases siguientes (CI)
 
 Happy path (clon local al día, en `main`):

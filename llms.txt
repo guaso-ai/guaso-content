@@ -1,15 +1,19 @@
 # Guaso Content SDK (@guaso-ai/content)
 
-Server-only (npm `server-only` poison + runtime assert). Env: GUASO_SITE_ID, GUASO_CONTENT_TOKEN. Optional GUASO_API_BASE (default https://api.guaso.link). ⛔ NEXT_PUBLIC_*. Optional ESLint `no-restricted-imports` — npm i does NOT configure ESLint.
+Server-only root entry (npm `server-only` poison + runtime assert). Env: GUASO_SITE_ID, GUASO_CONTENT_TOKEN. Optional GUASO_API_BASE (default https://api.guaso.link). ⛔ NEXT_PUBLIC_*. Optional ESLint `no-restricted-imports` — npm i does NOT configure ESLint.
 
 ```ts
 import { createClient } from "@guaso-ai/content";
+import type { StoreProduct } from "@guaso-ai/content/schemas/templates/store";
 const c = createClient({ siteId: process.env.GUASO_SITE_ID!, token: process.env.GUASO_CONTENT_TOKEN! });
 const e = await c.getEntry("pages/home"); // { data, empty }
 const batch = await c.getEntries(["pages/home", "pages/about"]);
+const products = await c.getEntry<StoreProduct[]>("products/products");
 ```
+
+Typed catalog (client-safe, no poison): `@guaso-ai/content/schemas` / `/schemas/blocks`. ⛔ import schemas via package root from Client Components. ⛔ listKeys / enumeration API.
 
 Empty-clear: missing key → `{ data: null, empty: true }` (HTTP 200).
 Revalidate: register HTTPS webhook at create; Guaso POSTs `{ secret, tags, siteId?, guasoVersion? }`.
 Blocks UI: install kit via shadcn registry `@guaso` (https://github.com/guaso-ai/guaso-blocks) — BlockZone + canonical block types. ⛔ hardcode sections / invent props outside content schema.
-⛔ browser / client components. ⛔ write API. ⛔ Neon credentials.
+⛔ browser / client components for root entry. ⛔ write API. ⛔ Neon credentials.
