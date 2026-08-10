@@ -1,6 +1,6 @@
 # Guaso Content SDK (@guaso-ai/content)
 
-Server-only. Env: GUASO_SITE_ID, GUASO_CONTENT_TOKEN. Optional GUASO_API_BASE (default https://api.guaso.link).
+Server-only (npm `server-only` poison + runtime assert). Env: GUASO_SITE_ID, GUASO_CONTENT_TOKEN. Optional GUASO_API_BASE (default https://api.guaso.link). ⛔ NEXT_PUBLIC_*. Optional ESLint `no-restricted-imports` — npm i does NOT configure ESLint.
 
 ```ts
 import { createClient } from "@guaso-ai/content";

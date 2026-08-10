@@ -5,7 +5,8 @@ Guaso Content = headless content plane. Owner edits via Guaso chat (WhatsApp/Tel
 
 ## Contract
 - Package: `@guaso-ai/content` (public npm; monetization is Guaso capability + token, not the package)
-- Runtime: **server-only** (RSC, Route Handlers, Node). Never import in `"use client"` or browser bundles.
+- Runtime: **server-only** — depends on npm `server-only` (Next Client Component / browser import → **build error**). Runtime assert covers other runtimes. Never import in `"use client"` or browser bundles. ⛔ `GUASO_CONTENT_TOKEN` in `NEXT_PUBLIC_*`.
+- Optional ESLint `no-restricted-imports` for `@guaso-ai/content` (copy-paste in README) — **`npm i` does not configure ESLint**.
 - Auth: Bearer token (`gct_…`) from Guaso chat once at site create. Store in server env `GUASO_CONTENT_TOKEN`. Site id in `GUASO_SITE_ID`.
 - Base URL: `https://api.guaso.link` (override with `baseUrl` / `GUASO_API_BASE` for staging).
 
