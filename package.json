@@ -1,7 +1,7 @@
 {
   "name": "@guaso-ai/content",
-  "version": "0.1.0",
-  "description": "Guaso Content SDK — server-only read client for headless content",
+  "version": "0.2.0",
+  "description": "Guaso Content SDK \u2014 server-only read client for headless content",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
