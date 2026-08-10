@@ -13,6 +13,26 @@ test("llms.txt and llms-full.txt exist", () => {
   const short = readFileSync(join(root, "llms.txt"), "utf8");
   assert.match(short, /server-only/i);
   assert.match(short, /empty/i);
+  assert.match(short, /getEntries/);
+  assert.match(short, /StoreProduct|products\/products/);
+  assert.match(short, /listKeys/);
+  assert.match(short, /schemas/);
+  const full = readFileSync(join(root, "llms-full.txt"), "utf8");
+  assert.match(full, /getEntries/);
+  assert.match(full, /products\/products/);
+  assert.match(full, /listKeys/);
+  const readme = readFileSync(join(root, "README.md"), "utf8");
+  assert.match(readme, /getEntries/);
+  assert.match(readme, /StoreProduct/);
+  assert.match(readme, /listKeys/);
+  assert.match(readme, /@guaso-ai\/content\/schemas/);
+});
+
+test("schemas entry has no server-only", () => {
+  const blocks = readFileSync(join(root, "src/schemas/blocks.ts"), "utf8");
+  assert.doesNotMatch(blocks, /import\s+["']server-only["']/);
+  const index = readFileSync(join(root, "src/schemas/index.ts"), "utf8");
+  assert.doesNotMatch(index, /import\s+["']server-only["']/);
 });
 
 test("poison: entry imports server-only and package depends on it", () => {

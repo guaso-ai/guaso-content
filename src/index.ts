@@ -2,21 +2,24 @@
  * @guaso-ai/content — server-only Guaso Content client.
  * ⛔ Do not import this package in browser / client bundles.
  * Poison: `import "server-only"` fails Next client bundles; runtime assert covers other runtimes.
+ *
+ * Typed schema catalog (client-safe): import from `@guaso-ai/content/schemas`
+ * — never from this entry in Client Components.
  */
 import "server-only";
 
-export type ContentEntry = {
+export type ContentEntry<T = unknown> = {
   siteId: string;
   guasoVersion: string;
   key: string;
   contentType: string | null;
-  data: unknown;
+  data: T | null;
   empty: boolean;
 };
 
 export type GuasoContentClient = {
-  getEntry: (key: string) => Promise<ContentEntry>;
-  getEntries: (keys: string[]) => Promise<ContentEntry[]>;
+  getEntry: <T = unknown>(key: string) => Promise<ContentEntry<T>>;
+  getEntries: <T = unknown>(keys: string[]) => Promise<ContentEntry<T>[]>;
 };
 
 export type CreateClientOptions = {
@@ -50,7 +53,7 @@ export function createClient(opts: CreateClientOptions): GuasoContentClient {
     Accept: "application/json",
   };
 
-  async function getEntry(key: string): Promise<ContentEntry> {
+  async function getEntry<T = unknown>(key: string): Promise<ContentEntry<T>> {
     const url = `${baseUrl}/api/v1/content/entries/${encodeURIComponent(key).replace(/%2F/g, "/")}`;
     const res = await fetchFn(url, { headers: authHeaders });
     if (res.status === 401 || res.status === 403) {
@@ -59,10 +62,12 @@ export function createClient(opts: CreateClientOptions): GuasoContentClient {
     if (!res.ok) {
       throw new Error(`Guaso Content: HTTP ${res.status}`);
     }
-    return (await res.json()) as ContentEntry;
+    return (await res.json()) as ContentEntry<T>;
   }
 
-  async function getEntries(keys: string[]): Promise<ContentEntry[]> {
+  async function getEntries<T = unknown>(
+    keys: string[],
+  ): Promise<ContentEntry<T>[]> {
     const url = `${baseUrl}/api/v1/content/entries/batch`;
     const res = await fetchFn(url, {
       method: "POST",
@@ -75,7 +80,7 @@ export function createClient(opts: CreateClientOptions): GuasoContentClient {
     if (!res.ok) {
       throw new Error(`Guaso Content: HTTP ${res.status}`);
     }
-    const body = (await res.json()) as { entries?: ContentEntry[] };
+    const body = (await res.json()) as { entries?: ContentEntry<T>[] };
     return body.entries ?? [];
   }
 
