@@ -26,9 +26,8 @@ export type RestaurantConfig = SiteColorConfig & {
   contactEmail?: string;
   phone?: string;
   address?: string;
-  "hours.open"?: string;
-  "hours.close"?: string;
-  "hours.days"?: string;
+  "hours.weekdays"?: string;
+  "hours.weekends"?: string;
   reservationsLink?: string;
   "socialLinks.instagram"?: string;
   "socialLinks.facebook"?: string;
@@ -58,9 +57,8 @@ export const RESTAURANT_PARITY = {
     "contactEmail",
     "description",
     "fontPair",
-    "hours.close",
-    "hours.days",
-    "hours.open",
+    "hours.weekdays",
+    "hours.weekends",
     "phone",
     "primaryColor",
     "reservationsLink",
