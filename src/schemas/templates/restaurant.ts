@@ -8,7 +8,10 @@ export type RestaurantGalleryImage = {
 
 export type RestaurantHomePage = {
   title?: string;
+  hero_kicker?: string;
   hero_subtitle?: string;
+  hero_rail?: string;
+  hero_badge?: string;
   features?: unknown;
   events_title?: string;
   events_description?: string;
@@ -36,7 +39,7 @@ export type RestaurantConfig = SiteColorConfig & {
 
 export const RESTAURANT_PARITY = {
   pages: {
-    home: ["title", "hero_subtitle", "features", "events_title", "events_description"],
+    home: ["title", "hero_kicker", "hero_subtitle", "hero_rail", "hero_badge", "features", "events_title", "events_description"],
     about: ["story", "chef_bio", "stats"],
   },
   collections: {
