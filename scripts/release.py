@@ -34,6 +34,11 @@ PACKAGE_LOCK = "package-lock.json"
 NPM_PACKAGE = "@guaso-ai/content"
 
 
+def format_docs_pin_required(version: str) -> str:
+    """Marker para el flow sdk-work.md (pin de /docs/content en guaso-app)."""
+    return f"DOCS_PIN_REQUIRED={NPM_PACKAGE}@{version}"
+
+
 def _run(
     cmd: list[str],
     *,
@@ -256,6 +261,7 @@ def apply_release(repo: Path, *, push: bool, skip_npm_check: bool = False) -> in
     _run(["git", "tag", "-a", new_tag, "-m", msg], cwd=repo)
     print(f"✓ bumped {plan['bump']}: {plan['current']} → {new_version}")
     print(f"✓ tagged {new_tag}")
+    print(format_docs_pin_required(new_version))
 
     if push:
         # Push current branch (expect main) + tag. Never npm publish.
@@ -336,6 +342,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  new:      {plan['new_version']}")
         print(f"  tag:      {plan['tag']}")
         print(f"  commits:  {plan['commits_considered']} since {plan['last_tag']}")
+        print(f"  {format_docs_pin_required(plan['new_version'])}")
         print("  next: python scripts/release.py --apply [--push]")
         return 0
 

@@ -99,6 +99,7 @@ def test_dry_run_does_not_mutate(
     out = capsys.readouterr().out
     assert "dry-run" in out
     assert "0.2.0" in out
+    assert "DOCS_PIN_REQUIRED=@guaso-ai/content@0.2.0" in out
     assert (tmp_path / "package.json").read_text(encoding="utf-8") == before
 
 
@@ -120,3 +121,10 @@ def test_chore_only_no_release(
 
 def test_push_requires_apply() -> None:
     assert release.main(["--push"]) == 2
+
+
+def test_format_docs_pin_required() -> None:
+    assert (
+        release.format_docs_pin_required("0.4.0")
+        == "DOCS_PIN_REQUIRED=@guaso-ai/content@0.4.0"
+    )
