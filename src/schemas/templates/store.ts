@@ -26,6 +26,8 @@ export type StoreConfig = SiteColorConfig & {
   tagline?: string;
   description?: string;
   contactEmail?: string;
+  contactPhone?: string;
+  address?: string;
   shippingInfo?: string;
   currency?: string;
   currencySymbol?: string;
@@ -57,7 +59,9 @@ export const STORE_PARITY = {
     "accentColor",
     "appearanceDefault",
     "appearanceToggle",
+    "address",
     "contactEmail",
+    "contactPhone",
     "currency",
     "currencySymbol",
     "description",
