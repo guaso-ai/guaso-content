@@ -87,6 +87,16 @@ test("STORE_PARITY products item_fields includes availability", () => {
   assert.ok(STORE_PARITY.collections.products.item_fields.includes("availability"));
 });
 
+test("STORE_PARITY store home hero slots and products.category (#3075)", () => {
+  for (const key of ["heroEyebrow", "heroTitle", "heroSubtitle"] as const) {
+    assert.ok(
+      (STORE_PARITY.pages.home as readonly string[]).includes(key),
+      `pages.home missing ${key}`,
+    );
+  }
+  assert.ok(STORE_PARITY.collections.products.item_fields.includes("category"));
+});
+
 test("dist schemas present after build (optional)", () => {
   // Build is a separate step; skip if dist missing (fresh clone pre-build).
   if (!existsSync(join(root, "dist/schemas/blocks.d.ts"))) {
