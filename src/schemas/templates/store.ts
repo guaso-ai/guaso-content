@@ -6,11 +6,15 @@ export type StoreProduct = {
   slug?: string;
   name?: string;
   description?: string;
+  category?: string;
   images?: string[];
   availability?: Availability;
 };
 
 export type StoreHomePage = {
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
   cta_title?: string;
   cta_description?: string;
   features?: unknown;
@@ -32,12 +36,20 @@ export type StoreConfig = SiteColorConfig & {
 
 export const STORE_PARITY = {
   pages: {
-    home: ["cta_title", "cta_description", "features", "highlights"],
+    home: [
+      "cta_description",
+      "cta_title",
+      "features",
+      "heroEyebrow",
+      "heroSubtitle",
+      "heroTitle",
+      "highlights",
+    ],
   },
   collections: {
     products: {
       content_key: "products/products",
-      item_fields: ["availability", "description", "name"],
+      item_fields: ["availability", "category", "description", "name"],
       id_field: "slug",
     },
   },
