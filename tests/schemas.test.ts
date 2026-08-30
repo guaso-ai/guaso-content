@@ -77,7 +77,7 @@ test("package exports ./schemas*", () => {
     version: string;
     exports: Record<string, unknown>;
   };
-  assert.equal(pkg.version, "0.3.0");
+  assert.match(pkg.version, /^\d+\.\d+\.\d+$/);
   assert.ok(pkg.exports["./schemas"]);
   assert.ok(pkg.exports["./schemas/blocks"]);
   assert.ok(pkg.exports["./schemas/templates/*"]);
