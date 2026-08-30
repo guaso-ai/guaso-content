@@ -7,6 +7,7 @@ import {
   CANONICAL_BLOCK_PARITY,
   TEMPLATE_IDS,
 } from "../src/schemas/index.ts";
+import { STORE_PARITY } from "../src/schemas/templates/store.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -80,6 +81,10 @@ test("package exports ./schemas*", () => {
   assert.ok(pkg.exports["./schemas"]);
   assert.ok(pkg.exports["./schemas/blocks"]);
   assert.ok(pkg.exports["./schemas/templates/*"]);
+});
+
+test("STORE_PARITY products item_fields includes availability", () => {
+  assert.ok(STORE_PARITY.collections.products.item_fields.includes("availability"));
 });
 
 test("dist schemas present after build (optional)", () => {

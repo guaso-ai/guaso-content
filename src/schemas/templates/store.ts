@@ -1,10 +1,13 @@
 import type { SiteColorConfig } from "./_site-colors.js";
 
+export type Availability = "in_stock" | "preorder" | "made_to_order";
+
 export type StoreProduct = {
   slug?: string;
   name?: string;
   description?: string;
   images?: string[];
+  availability?: Availability;
 };
 
 export type StoreHomePage = {
@@ -34,7 +37,7 @@ export const STORE_PARITY = {
   collections: {
     products: {
       content_key: "products/products",
-      item_fields: ["name", "description"],
+      item_fields: ["availability", "description", "name"],
       id_field: "slug",
     },
   },
