@@ -24,6 +24,14 @@ export type GymTrainer = {
 export type GymHomePage = {
   features?: unknown;
   stats?: unknown;
+  hero_title?: string;
+  hero_kicker?: string;
+  hero_badge?: string;
+  hero_location?: string;
+  cta_primary?: string;
+  cta_secondary?: string;
+  disciplines?: unknown;
+  section_headings?: unknown;
 };
 
 export type GymConfig = SiteColorConfig & {
@@ -39,11 +47,29 @@ export type GymConfig = SiteColorConfig & {
   "socialLinks.instagram"?: string;
   "socialLinks.facebook"?: string;
   "socialLinks.youtube"?: string;
+  formSubmit?: string;
+  formSuccess?: string;
+  "nav.home"?: string;
+  "nav.clases"?: string;
+  "nav.planes"?: string;
+  "nav.instructores"?: string;
+  "nav.contacto"?: string;
 };
 
 export const GYM_PARITY = {
   pages: {
-    home: ["features", "stats"],
+    home: [
+        "cta_primary",
+        "cta_secondary",
+        "disciplines",
+        "features",
+        "hero_badge",
+        "hero_kicker",
+        "hero_location",
+        "hero_title",
+        "section_headings",
+        "stats",
+      ],
   },
   collections: {
     classes: {
@@ -63,29 +89,36 @@ export const GYM_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "address",
-    "appearanceDefault",
-    "appearanceToggle",
-    "contactEmail",
-    "description",
-    "fontPair",
-    "hours.weekdays",
-    "hours.weekends",
-    "phone",
-    "primaryColor",
-    "secondaryColor",
-    "siteName",
-    "socialLinks.facebook",
-    "socialLinks.instagram",
-    "socialLinks.youtube",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-    "whatsapp",
-  ],
+      "accentColor",
+      "address",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "description",
+      "fontPair",
+      "formSubmit",
+      "formSuccess",
+      "hours.weekdays",
+      "hours.weekends",
+      "nav.clases",
+      "nav.contacto",
+      "nav.home",
+      "nav.instructores",
+      "nav.planes",
+      "phone",
+      "primaryColor",
+      "secondaryColor",
+      "siteName",
+      "socialLinks.facebook",
+      "socialLinks.instagram",
+      "socialLinks.youtube",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+      "whatsapp",
+    ],
 } as const;

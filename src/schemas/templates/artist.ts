@@ -24,6 +24,14 @@ export type ArtistGalleryImage = {
 
 export type ArtistHomePage = {
   intro_text?: string;
+  artwork_label?: string;
+  artwork_technique?: string;
+  hero_kicker?: string;
+  hero_rail?: unknown;
+  cta_primary?: string;
+  cta_secondary?: string;
+  featured_heading?: string;
+  section_headings?: unknown;
 };
 
 export type ArtistAboutPage = {
@@ -50,19 +58,36 @@ export type ArtistConfig = SiteColorConfig & {
   "socialLinks.twitter"?: string;
   "socialLinks.behance"?: string;
   "socialLinks.linkedin"?: string;
+  formSubmit?: string;
+  "nav.home"?: string;
+  "nav.about"?: string;
+  "nav.gallery"?: string;
+  "nav.projects"?: string;
+  "nav.blog"?: string;
+  "nav.contact"?: string;
 };
 
 export const ARTIST_PARITY = {
   pages: {
-    home: ["intro_text"],
+    home: [
+        "artwork_label",
+        "artwork_technique",
+        "cta_primary",
+        "cta_secondary",
+        "featured_heading",
+        "hero_kicker",
+        "hero_rail",
+        "intro_text",
+        "section_headings",
+      ],
     about: [
-      "bio_paragraph_1",
-      "bio_paragraph_2",
-      "photoUrl",
-      "stats",
-      "process",
-      "exhibitions",
-    ],
+        "bio_paragraph_1",
+        "bio_paragraph_2",
+        "exhibitions",
+        "photoUrl",
+        "process",
+        "stats",
+      ],
     contact: ["location", "response_time", "intro_text"],
   },
   collections: {
@@ -83,25 +108,32 @@ export const ARTIST_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "appearanceDefault",
-    "appearanceToggle",
-    "contactEmail",
-    "description",
-    "fontPair",
-    "primaryColor",
-    "secondaryColor",
-    "siteName",
-    "socialLinks.behance",
-    "socialLinks.instagram",
-    "socialLinks.linkedin",
-    "socialLinks.twitter",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-  ],
+      "accentColor",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "description",
+      "fontPair",
+      "formSubmit",
+      "nav.about",
+      "nav.blog",
+      "nav.contact",
+      "nav.gallery",
+      "nav.home",
+      "nav.projects",
+      "primaryColor",
+      "secondaryColor",
+      "siteName",
+      "socialLinks.behance",
+      "socialLinks.instagram",
+      "socialLinks.linkedin",
+      "socialLinks.twitter",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+    ],
 } as const;
