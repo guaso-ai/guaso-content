@@ -19,6 +19,7 @@ export type RealEstateHomePage = {
   stats?: unknown;
   features?: unknown;
   hero_title?: string;
+  services?: unknown;
 };
 
 export type RealEstateAboutPage = {
@@ -40,7 +41,7 @@ export type RealEstateConfig = SiteColorConfig & {
 
 export const REAL_ESTATE_PARITY = {
   pages: {
-    home: ["stats", "features", "hero_title"],
+    home: ["stats", "features", "hero_title", "services"],
     about: ["story", "team_bio", "values"],
   },
   collections: {

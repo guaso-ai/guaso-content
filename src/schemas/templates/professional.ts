@@ -28,6 +28,7 @@ export type ProfessionalAboutPage = {
   credentials?: unknown;
   stats?: unknown;
   timeline?: unknown;
+  values?: unknown;
 };
 
 export type ProfessionalContactPage = {
@@ -53,7 +54,7 @@ export type ProfessionalConfig = SiteColorConfig & {
 export const PROFESSIONAL_PARITY = {
   pages: {
     home: [],
-    about: ["bio", "mission", "credentials", "stats", "timeline"],
+    about: ["bio", "mission", "credentials", "stats", "timeline", "values"],
     contact: ["location", "availability"],
   },
   collections: {
