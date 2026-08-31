@@ -19,6 +19,9 @@ export type StoreHomePage = {
   cta_description?: string;
   features?: unknown;
   highlights?: unknown;
+  catalogTitle?: string;
+  emptyState?: string;
+  sectionHeadings?: unknown;
 };
 
 export type StoreConfig = SiteColorConfig & {
@@ -34,19 +37,26 @@ export type StoreConfig = SiteColorConfig & {
   "socialLinks.instagram"?: string;
   "socialLinks.twitter"?: string;
   "socialLinks.facebook"?: string;
+  formSubmit?: string;
+  formSuccess?: string;
+  "nav.home"?: string;
+  "nav.store"?: string;
 };
 
 export const STORE_PARITY = {
   pages: {
     home: [
-      "cta_description",
-      "cta_title",
-      "features",
-      "heroEyebrow",
-      "heroSubtitle",
-      "heroTitle",
-      "highlights",
-    ],
+        "catalogTitle",
+        "cta_description",
+        "cta_title",
+        "emptyState",
+        "features",
+        "heroEyebrow",
+        "heroSubtitle",
+        "heroTitle",
+        "highlights",
+        "sectionHeadings",
+      ],
   },
   collections: {
     products: {
@@ -56,29 +66,33 @@ export const STORE_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "appearanceDefault",
-    "appearanceToggle",
-    "address",
-    "contactEmail",
-    "contactPhone",
-    "currency",
-    "currencySymbol",
-    "description",
-    "fontPair",
-    "primaryColor",
-    "secondaryColor",
-    "shippingInfo",
-    "siteName",
-    "socialLinks.facebook",
-    "socialLinks.instagram",
-    "socialLinks.twitter",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-  ],
+      "accentColor",
+      "address",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "contactPhone",
+      "currency",
+      "currencySymbol",
+      "description",
+      "fontPair",
+      "formSubmit",
+      "formSuccess",
+      "nav.home",
+      "nav.store",
+      "primaryColor",
+      "secondaryColor",
+      "shippingInfo",
+      "siteName",
+      "socialLinks.facebook",
+      "socialLinks.instagram",
+      "socialLinks.twitter",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+    ],
 } as const;

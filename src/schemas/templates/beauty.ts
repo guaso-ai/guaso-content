@@ -24,6 +24,11 @@ export type BeautyHomePage = {
   welcome_text?: string;
   features?: unknown;
   testimonials?: unknown;
+  hero_kicker?: string;
+  hero_footer?: string;
+  cta_primary?: string;
+  cta_title?: string;
+  section_headings?: unknown;
 };
 
 export type BeautyBookingPage = {
@@ -45,11 +50,27 @@ export type BeautyConfig = SiteColorConfig & {
   "socialLinks.instagram"?: string;
   "socialLinks.facebook"?: string;
   "socialLinks.tiktok"?: string;
+  formSubmit?: string;
+  formSuccess?: string;
+  "nav.home"?: string;
+  "nav.servicios"?: string;
+  "nav.galeria"?: string;
+  "nav.turnos"?: string;
+  "nav.contacto"?: string;
 };
 
 export const BEAUTY_PARITY = {
   pages: {
-    home: ["welcome_text", "features", "testimonials"],
+    home: [
+        "cta_primary",
+        "cta_title",
+        "features",
+        "hero_footer",
+        "hero_kicker",
+        "section_headings",
+        "testimonials",
+        "welcome_text",
+      ],
     booking: ["instructions", "available_days", "methods"],
   },
   collections: {
@@ -70,29 +91,36 @@ export const BEAUTY_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "address",
-    "appearanceDefault",
-    "appearanceToggle",
-    "contactEmail",
-    "description",
-    "fontPair",
-    "hours.weekdays",
-    "hours.weekends",
-    "phone",
-    "primaryColor",
-    "secondaryColor",
-    "siteName",
-    "socialLinks.facebook",
-    "socialLinks.instagram",
-    "socialLinks.tiktok",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-    "whatsapp",
-  ],
+      "accentColor",
+      "address",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "description",
+      "fontPair",
+      "formSubmit",
+      "formSuccess",
+      "hours.weekdays",
+      "hours.weekends",
+      "nav.contacto",
+      "nav.galeria",
+      "nav.home",
+      "nav.servicios",
+      "nav.turnos",
+      "phone",
+      "primaryColor",
+      "secondaryColor",
+      "siteName",
+      "socialLinks.facebook",
+      "socialLinks.instagram",
+      "socialLinks.tiktok",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+      "whatsapp",
+    ],
 } as const;

@@ -15,6 +15,9 @@ export type RestaurantHomePage = {
   features?: unknown;
   events_title?: string;
   events_description?: string;
+  cta_primary?: string;
+  cta_secondary?: string;
+  section_headings?: unknown;
 };
 
 export type RestaurantAboutPage = {
@@ -37,12 +40,37 @@ export type RestaurantConfig = SiteColorConfig & {
   reservationsLink?: string;
   "socialLinks.instagram"?: string;
   "socialLinks.facebook"?: string;
+  formSubmit?: string;
+  formSuccess?: string;
+  "nav.home"?: string;
+  "nav.menu"?: string;
+  "nav.nosotros"?: string;
+  "nav.galeria"?: string;
+  "nav.contacto"?: string;
 };
 
 export const RESTAURANT_PARITY = {
   pages: {
-    home: ["title", "hero_kicker", "hero_subtitle", "hero_rail", "hero_badge", "features", "events_title", "events_description"],
-    about: ["story", "story_2", "chef_bio", "stats", "values"],
+    home: [
+        "cta_primary",
+        "cta_secondary",
+        "events_description",
+        "events_title",
+        "features",
+        "hero_badge",
+        "hero_kicker",
+        "hero_rail",
+        "hero_subtitle",
+        "section_headings",
+        "title",
+      ],
+    about: [
+        "chef_bio",
+        "stats",
+        "story",
+        "story_2",
+        "values",
+      ],
   },
   collections: {
     menu: {
@@ -56,28 +84,35 @@ export const RESTAURANT_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "address",
-    "appearanceDefault",
-    "appearanceToggle",
-    "contactEmail",
-    "description",
-    "fontPair",
-    "hours.weekdays",
-    "hours.weekends",
-    "phone",
-    "primaryColor",
-    "reservationsLink",
-    "secondaryColor",
-    "siteName",
-    "socialLinks.facebook",
-    "socialLinks.instagram",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-  ],
+      "accentColor",
+      "address",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "description",
+      "fontPair",
+      "formSubmit",
+      "formSuccess",
+      "hours.weekdays",
+      "hours.weekends",
+      "nav.contacto",
+      "nav.galeria",
+      "nav.home",
+      "nav.menu",
+      "nav.nosotros",
+      "phone",
+      "primaryColor",
+      "reservationsLink",
+      "secondaryColor",
+      "siteName",
+      "socialLinks.facebook",
+      "socialLinks.instagram",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+    ],
 } as const;

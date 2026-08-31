@@ -49,12 +49,35 @@ export type ProfessionalConfig = SiteColorConfig & {
   "socialLinks.linkedin"?: string;
   "socialLinks.instagram"?: string;
   "socialLinks.twitter"?: string;
+  formSubmit?: string;
+  formSuccess?: string;
+  ctaPrimary?: string;
+  ctaSecondary?: string;
+  ctaTitle?: string;
+  servicesHeading?: string;
+  teamHeading?: string;
+  testimonialsHeading?: string;
+  "nav.home"?: string;
+  "nav.servicios"?: string;
+  "nav.nosotros"?: string;
+  "nav.equipo"?: string;
+  "nav.testimonios"?: string;
+  "nav.contacto"?: string;
 };
 
 export const PROFESSIONAL_PARITY = {
   pages: {
-    home: [],
-    about: ["bio", "mission", "credentials", "stats", "timeline", "values"],
+    home: [
+,
+      ],
+    about: [
+        "bio",
+        "credentials",
+        "mission",
+        "stats",
+        "timeline",
+        "values",
+      ],
     contact: ["location", "availability"],
   },
   collections: {
@@ -75,29 +98,43 @@ export const PROFESSIONAL_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "address",
-    "appearanceDefault",
-    "appearanceToggle",
-    "contactEmail",
-    "description",
-    "fontPair",
-    "phone",
-    "primaryColor",
-    "profession",
-    "secondaryColor",
-    "siteName",
-    "socialLinks.instagram",
-    "socialLinks.linkedin",
-    "socialLinks.twitter",
-    "specialty",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-    "whatsapp",
-  ],
+      "accentColor",
+      "address",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "ctaPrimary",
+      "ctaSecondary",
+      "ctaTitle",
+      "description",
+      "fontPair",
+      "formSubmit",
+      "formSuccess",
+      "nav.contacto",
+      "nav.equipo",
+      "nav.home",
+      "nav.nosotros",
+      "nav.servicios",
+      "nav.testimonios",
+      "phone",
+      "primaryColor",
+      "profession",
+      "secondaryColor",
+      "servicesHeading",
+      "siteName",
+      "socialLinks.instagram",
+      "socialLinks.linkedin",
+      "socialLinks.twitter",
+      "specialty",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+      "teamHeading",
+      "testimonialsHeading",
+      "whatsapp",
+    ],
 } as const;

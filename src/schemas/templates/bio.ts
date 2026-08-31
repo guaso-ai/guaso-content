@@ -17,6 +17,8 @@ export type BioBlogPost = {
 export type BioHomePage = {
   bio?: string;
   headline?: string;
+  blog_heading?: string;
+  section_headings?: unknown;
 };
 
 export type BioConfig = SiteColorConfig & {
@@ -32,11 +34,18 @@ export type BioConfig = SiteColorConfig & {
   "socialLinks.linkedin"?: string;
   "socialLinks.spotify"?: string;
   "socialLinks.whatsapp"?: string;
+  "nav.home"?: string;
+  "nav.blog"?: string;
 };
 
 export const BIO_PARITY = {
   pages: {
-    home: ["bio", "headline"],
+    home: [
+        "bio",
+        "blog_heading",
+        "headline",
+        "section_headings",
+      ],
   },
   collections: {
     links: {
@@ -51,29 +60,31 @@ export const BIO_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "appearanceDefault",
-    "appearanceToggle",
-    "contactEmail",
-    "description",
-    "fontPair",
-    "heroImage",
-    "primaryColor",
-    "secondaryColor",
-    "siteName",
-    "socialLinks.instagram",
-    "socialLinks.linkedin",
-    "socialLinks.spotify",
-    "socialLinks.tiktok",
-    "socialLinks.twitter",
-    "socialLinks.whatsapp",
-    "socialLinks.youtube",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-  ],
+      "accentColor",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "description",
+      "fontPair",
+      "heroImage",
+      "nav.blog",
+      "nav.home",
+      "primaryColor",
+      "secondaryColor",
+      "siteName",
+      "socialLinks.instagram",
+      "socialLinks.linkedin",
+      "socialLinks.spotify",
+      "socialLinks.tiktok",
+      "socialLinks.twitter",
+      "socialLinks.whatsapp",
+      "socialLinks.youtube",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+    ],
 } as const;

@@ -20,6 +20,9 @@ export type RealEstateHomePage = {
   features?: unknown;
   hero_title?: string;
   services?: unknown;
+  cta_primary?: string;
+  cta_secondary?: string;
+  section_headings?: unknown;
 };
 
 export type RealEstateAboutPage = {
@@ -37,12 +40,30 @@ export type RealEstateConfig = SiteColorConfig & {
   whatsapp?: string;
   zone?: string;
   licenseNumber?: string;
+  formSubmit?: string;
+  formSuccess?: string;
+  "nav.home"?: string;
+  "nav.propiedades"?: string;
+  "nav.nosotros"?: string;
+  "nav.contacto"?: string;
 };
 
 export const REAL_ESTATE_PARITY = {
   pages: {
-    home: ["stats", "features", "hero_title", "services"],
-    about: ["story", "team_bio", "values"],
+    home: [
+        "cta_primary",
+        "cta_secondary",
+        "features",
+        "hero_title",
+        "section_headings",
+        "services",
+        "stats",
+      ],
+    about: [
+        "story",
+        "team_bio",
+        "values",
+      ],
   },
   collections: {
     properties: {
@@ -57,25 +78,31 @@ export const REAL_ESTATE_PARITY = {
     },
   },
   config_fields: [
-    "accentColor",
-    "appearanceDefault",
-    "appearanceToggle",
-    "contactEmail",
-    "description",
-    "fontPair",
-    "licenseNumber",
-    "phone",
-    "primaryColor",
-    "secondaryColor",
-    "siteName",
-    "styles.accentColor",
-    "styles.appearanceDefault",
-    "styles.appearanceToggle",
-    "styles.fontPair",
-    "styles.primaryColor",
-    "styles.secondaryColor",
-    "tagline",
-    "whatsapp",
-    "zone",
-  ],
+      "accentColor",
+      "appearanceDefault",
+      "appearanceToggle",
+      "contactEmail",
+      "description",
+      "fontPair",
+      "formSubmit",
+      "formSuccess",
+      "licenseNumber",
+      "nav.contacto",
+      "nav.home",
+      "nav.nosotros",
+      "nav.propiedades",
+      "phone",
+      "primaryColor",
+      "secondaryColor",
+      "siteName",
+      "styles.accentColor",
+      "styles.appearanceDefault",
+      "styles.appearanceToggle",
+      "styles.fontPair",
+      "styles.primaryColor",
+      "styles.secondaryColor",
+      "tagline",
+      "whatsapp",
+      "zone",
+    ],
 } as const;
