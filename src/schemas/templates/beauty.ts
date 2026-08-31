@@ -23,6 +23,7 @@ export type BeautyTeamMember = {
 export type BeautyHomePage = {
   welcome_text?: string;
   features?: unknown;
+  testimonials?: unknown;
 };
 
 export type BeautyBookingPage = {
@@ -48,7 +49,7 @@ export type BeautyConfig = SiteColorConfig & {
 
 export const BEAUTY_PARITY = {
   pages: {
-    home: ["welcome_text", "features"],
+    home: ["welcome_text", "features", "testimonials"],
     booking: ["instructions", "available_days", "methods"],
   },
   collections: {

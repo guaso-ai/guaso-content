@@ -8,6 +8,10 @@ import {
   TEMPLATE_IDS,
 } from "../src/schemas/index.ts";
 import { STORE_PARITY } from "../src/schemas/templates/store.ts";
+import { RESTAURANT_PARITY } from "../src/schemas/templates/restaurant.ts";
+import { PROFESSIONAL_PARITY } from "../src/schemas/templates/professional.ts";
+import { BEAUTY_PARITY } from "../src/schemas/templates/beauty.ts";
+import { REAL_ESTATE_PARITY } from "../src/schemas/templates/real-estate.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -85,6 +89,21 @@ test("package exports ./schemas*", () => {
 
 test("STORE_PARITY products item_fields includes availability", () => {
   assert.ok(STORE_PARITY.collections.products.item_fields.includes("availability"));
+});
+
+test("seed keys residuales #3642 en PARITY", () => {
+  const about = RESTAURANT_PARITY.pages.about as readonly string[];
+  assert.ok(about.includes("story_2"));
+  assert.ok(about.includes("values"));
+  assert.ok(
+    (PROFESSIONAL_PARITY.pages.about as readonly string[]).includes("values"),
+  );
+  assert.ok(
+    (BEAUTY_PARITY.pages.home as readonly string[]).includes("testimonials"),
+  );
+  assert.ok(
+    (REAL_ESTATE_PARITY.pages.home as readonly string[]).includes("services"),
+  );
 });
 
 test("STORE_PARITY store home hero slots and products.category (#3075)", () => {
