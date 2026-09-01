@@ -91,6 +91,13 @@ test("STORE_PARITY products item_fields includes availability", () => {
   assert.ok(STORE_PARITY.collections.products.item_fields.includes("availability"));
 });
 
+test("#3670 featured en products y properties", () => {
+  assert.ok(STORE_PARITY.collections.products.item_fields.includes("featured"));
+  assert.ok(
+    REAL_ESTATE_PARITY.collections.properties.item_fields.includes("featured"),
+  );
+});
+
 test("seed keys residuales #3642 en PARITY", () => {
   const about = RESTAURANT_PARITY.pages.about as readonly string[];
   assert.ok(about.includes("story_2"));

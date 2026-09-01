@@ -68,7 +68,7 @@ export const REAL_ESTATE_PARITY = {
   collections: {
     properties: {
       content_key: "properties/properties",
-      item_fields: ["title", "description", "address"],
+      item_fields: ["address", "description", "featured", "title"],
       id_field: "slug",
     },
     team: {
