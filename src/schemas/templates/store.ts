@@ -61,7 +61,7 @@ export const STORE_PARITY = {
   collections: {
     products: {
       content_key: "products/products",
-      item_fields: ["availability", "category", "description", "name"],
+      item_fields: ["availability", "category", "description", "featured", "name"],
       id_field: "slug",
     },
   },
