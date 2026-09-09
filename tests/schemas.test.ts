@@ -8,6 +8,8 @@ import {
   TEMPLATE_IDS,
 } from "../src/schemas/index.ts";
 import { STORE_PARITY } from "../src/schemas/templates/store.ts";
+import { ARTIST_PARITY } from "../src/schemas/templates/artist.ts";
+import { BIO_PARITY } from "../src/schemas/templates/bio.ts";
 import { RESTAURANT_PARITY } from "../src/schemas/templates/restaurant.ts";
 import { PROFESSIONAL_PARITY } from "../src/schemas/templates/professional.ts";
 import { BEAUTY_PARITY } from "../src/schemas/templates/beauty.ts";
@@ -116,6 +118,17 @@ test("#3811 pages.home sunset: fields migrados no están en PARITY", () => {
   assert.ok(!reHome.includes("services"));
   assert.ok(!reHome.includes("stats"));
   assert.ok(!reHome.includes("features"));
+});
+
+test("#3812 ARTIST_PARITY products + nav.store; BIO blog date", () => {
+  assert.equal(ARTIST_PARITY.collections.products.content_key, "products/products");
+  assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("featured"));
+  assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("availability"));
+  assert.ok(ARTIST_PARITY.config_fields.includes("nav.store"));
+  assert.ok(ARTIST_PARITY.collections.blog.item_fields.includes("date"));
+  assert.ok(ARTIST_PARITY.collections.projects.item_fields.includes("year"));
+  assert.ok(ARTIST_PARITY.collections.projects.item_fields.includes("tags"));
+  assert.ok(BIO_PARITY.collections.blog.item_fields.includes("date"));
 });
 
 test("STORE_PARITY store home hero slots and products.category (#3075)", () => {

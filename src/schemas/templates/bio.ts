@@ -11,6 +11,7 @@ export type BioBlogPost = {
   title?: string;
   excerpt?: string;
   content?: string;
+  date?: string;
   coverImage?: string;
 };
 
@@ -55,7 +56,7 @@ export const BIO_PARITY = {
     },
     blog: {
       content_key: "blog/posts",
-      item_fields: ["title", "excerpt", "content"],
+      item_fields: ["content", "date", "excerpt", "title"],
       id_field: "slug",
     },
   },
