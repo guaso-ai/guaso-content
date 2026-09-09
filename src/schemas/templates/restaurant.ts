@@ -12,7 +12,6 @@ export type RestaurantHomePage = {
   hero_subtitle?: string;
   hero_rail?: string;
   hero_badge?: string;
-  features?: unknown;
   events_title?: string;
   events_description?: string;
   cta_primary?: string;
@@ -56,7 +55,6 @@ export const RESTAURANT_PARITY = {
         "cta_secondary",
         "events_description",
         "events_title",
-        "features",
         "hero_badge",
         "hero_kicker",
         "hero_rail",

@@ -23,7 +23,6 @@ export type ArtistGalleryImage = {
 };
 
 export type ArtistHomePage = {
-  intro_text?: string;
   artwork_label?: string;
   artwork_technique?: string;
   hero_kicker?: string;
@@ -77,7 +76,6 @@ export const ARTIST_PARITY = {
         "featured_heading",
         "hero_kicker",
         "hero_rail",
-        "intro_text",
         "section_headings",
       ],
     about: [

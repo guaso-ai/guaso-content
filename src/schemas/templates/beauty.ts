@@ -21,13 +21,9 @@ export type BeautyTeamMember = {
 };
 
 export type BeautyHomePage = {
-  welcome_text?: string;
-  features?: unknown;
-  testimonials?: unknown;
   hero_kicker?: string;
   hero_footer?: string;
   cta_primary?: string;
-  cta_title?: string;
   section_headings?: unknown;
 };
 
@@ -63,13 +59,9 @@ export const BEAUTY_PARITY = {
   pages: {
     home: [
         "cta_primary",
-        "cta_title",
-        "features",
         "hero_footer",
         "hero_kicker",
         "section_headings",
-        "testimonials",
-        "welcome_text",
       ],
     booking: ["instructions", "available_days", "methods"],
   },
