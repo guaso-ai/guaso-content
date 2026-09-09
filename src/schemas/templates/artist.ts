@@ -5,6 +5,7 @@ export type ArtistBlogPost = {
   title?: string;
   excerpt?: string;
   content?: string;
+  date?: string;
   coverImage?: string;
 };
 
@@ -12,8 +13,20 @@ export type ArtistProject = {
   slug?: string;
   title?: string;
   description?: string;
+  year?: string;
+  tags?: string;
   coverImage?: string;
   images?: string[];
+};
+
+export type ArtistProduct = {
+  slug?: string;
+  name?: string;
+  description?: string;
+  category?: string;
+  images?: string[];
+  availability?: string;
+  featured?: boolean;
 };
 
 export type ArtistGalleryImage = {
@@ -58,11 +71,16 @@ export type ArtistConfig = SiteColorConfig & {
   "socialLinks.behance"?: string;
   "socialLinks.linkedin"?: string;
   formSubmit?: string;
+  currency?: string;
+  currencySymbol?: string;
+  heroImage?: string;
+  logo?: string;
   "nav.home"?: string;
   "nav.about"?: string;
   "nav.gallery"?: string;
   "nav.projects"?: string;
   "nav.blog"?: string;
+  "nav.store"?: string;
   "nav.contact"?: string;
 };
 
@@ -91,12 +109,17 @@ export const ARTIST_PARITY = {
   collections: {
     blog: {
       content_key: "blog/posts",
-      item_fields: ["title", "excerpt", "content"],
+      item_fields: ["content", "date", "excerpt", "title"],
       id_field: "slug",
     },
     projects: {
       content_key: "projects/projects",
-      item_fields: ["title", "description"],
+      item_fields: ["description", "tags", "title", "year"],
+      id_field: "slug",
+    },
+    products: {
+      content_key: "products/products",
+      item_fields: ["availability", "category", "description", "featured", "name"],
       id_field: "slug",
     },
     gallery: {
@@ -110,15 +133,20 @@ export const ARTIST_PARITY = {
       "appearanceDefault",
       "appearanceToggle",
       "contactEmail",
+      "currency",
+      "currencySymbol",
       "description",
       "fontPair",
       "formSubmit",
+      "heroImage",
+      "logo",
       "nav.about",
       "nav.blog",
       "nav.contact",
       "nav.gallery",
       "nav.home",
       "nav.projects",
+      "nav.store",
       "primaryColor",
       "secondaryColor",
       "siteName",
