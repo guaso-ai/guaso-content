@@ -16,10 +16,7 @@ export type RealEstateTeamMember = {
 };
 
 export type RealEstateHomePage = {
-  stats?: unknown;
-  features?: unknown;
   hero_title?: string;
-  services?: unknown;
   cta_primary?: string;
   cta_secondary?: string;
   section_headings?: unknown;
@@ -53,11 +50,8 @@ export const REAL_ESTATE_PARITY = {
     home: [
         "cta_primary",
         "cta_secondary",
-        "features",
         "hero_title",
         "section_headings",
-        "services",
-        "stats",
       ],
     about: [
         "story",

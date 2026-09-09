@@ -105,12 +105,17 @@ test("seed keys residuales #3642 en PARITY", () => {
   assert.ok(
     (PROFESSIONAL_PARITY.pages.about as readonly string[]).includes("values"),
   );
-  assert.ok(
-    (BEAUTY_PARITY.pages.home as readonly string[]).includes("testimonials"),
-  );
-  assert.ok(
-    (REAL_ESTATE_PARITY.pages.home as readonly string[]).includes("services"),
-  );
+});
+
+test("#3811 pages.home sunset: fields migrados no están en PARITY", () => {
+  const beautyHome = BEAUTY_PARITY.pages.home as readonly string[];
+  assert.ok(!beautyHome.includes("testimonials"));
+  assert.ok(!beautyHome.includes("welcome_text"));
+  assert.ok(!beautyHome.includes("cta_title"));
+  const reHome = REAL_ESTATE_PARITY.pages.home as readonly string[];
+  assert.ok(!reHome.includes("services"));
+  assert.ok(!reHome.includes("stats"));
+  assert.ok(!reHome.includes("features"));
 });
 
 test("STORE_PARITY store home hero slots and products.category (#3075)", () => {

@@ -22,7 +22,6 @@ export type GymTrainer = {
 };
 
 export type GymHomePage = {
-  features?: unknown;
   stats?: unknown;
   hero_title?: string;
   hero_kicker?: string;
@@ -30,7 +29,6 @@ export type GymHomePage = {
   hero_location?: string;
   cta_primary?: string;
   cta_secondary?: string;
-  disciplines?: unknown;
   section_headings?: unknown;
 };
 
@@ -61,8 +59,6 @@ export const GYM_PARITY = {
     home: [
         "cta_primary",
         "cta_secondary",
-        "disciplines",
-        "features",
         "hero_badge",
         "hero_kicker",
         "hero_location",

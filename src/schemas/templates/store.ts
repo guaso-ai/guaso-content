@@ -15,10 +15,6 @@ export type StoreHomePage = {
   heroEyebrow?: string;
   heroTitle?: string;
   heroSubtitle?: string;
-  cta_title?: string;
-  cta_description?: string;
-  features?: unknown;
-  highlights?: unknown;
   catalogTitle?: string;
   emptyState?: string;
   sectionHeadings?: unknown;
@@ -47,14 +43,10 @@ export const STORE_PARITY = {
   pages: {
     home: [
         "catalogTitle",
-        "cta_description",
-        "cta_title",
         "emptyState",
-        "features",
         "heroEyebrow",
         "heroSubtitle",
         "heroTitle",
-        "highlights",
         "sectionHeadings",
       ],
   },

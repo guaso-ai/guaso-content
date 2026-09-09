@@ -15,15 +15,10 @@ export type ClinicTeamMember = {
 };
 
 export type ClinicHomePage = {
-  welcome_text?: string;
-  features?: unknown;
-  stats?: unknown;
   hero_title?: string;
   hero_kicker?: string;
   hero_badge?: string;
-  why_heading?: string;
   cta_primary?: string;
-  value_props?: unknown;
   section_headings?: unknown;
 };
 
@@ -58,15 +53,10 @@ export const CLINIC_PARITY = {
   pages: {
     home: [
         "cta_primary",
-        "features",
         "hero_badge",
         "hero_kicker",
         "hero_title",
         "section_headings",
-        "stats",
-        "value_props",
-        "welcome_text",
-        "why_heading",
       ],
     booking: ["instructions", "available_days", "methods"],
   },
