@@ -91,6 +91,8 @@ test("package exports ./schemas*", () => {
 
 test("STORE_PARITY products item_fields includes availability", () => {
   assert.ok(STORE_PARITY.collections.products.item_fields.includes("availability"));
+  assert.ok(STORE_PARITY.collections.products.item_fields.includes("price"));
+  assert.ok(STORE_PARITY.collections.products.item_fields.includes("quantity"));
 });
 
 test("#3670 featured en products y properties", () => {
@@ -124,6 +126,8 @@ test("#3812 ARTIST_PARITY products + nav.store; BIO blog date", () => {
   assert.equal(ARTIST_PARITY.collections.products.content_key, "products/products");
   assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("featured"));
   assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("availability"));
+  assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("price"));
+  assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("quantity"));
   assert.ok(ARTIST_PARITY.config_fields.includes("nav.store"));
   assert.ok(ARTIST_PARITY.collections.blog.item_fields.includes("date"));
   assert.ok(ARTIST_PARITY.collections.projects.item_fields.includes("year"));

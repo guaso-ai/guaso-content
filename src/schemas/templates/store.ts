@@ -8,6 +8,8 @@ export type StoreProduct = {
   description?: string;
   category?: string;
   images?: string[];
+  price?: number;
+  quantity?: number;
   availability?: Availability;
 };
 
@@ -53,7 +55,7 @@ export const STORE_PARITY = {
   collections: {
     products: {
       content_key: "products/products",
-      item_fields: ["availability", "category", "description", "featured", "name"],
+      item_fields: ["availability", "category", "description", "featured", "name", "price", "quantity"],
       id_field: "slug",
     },
   },
