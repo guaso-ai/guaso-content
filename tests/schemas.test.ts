@@ -145,6 +145,22 @@ test("STORE_PARITY store home hero slots and products.category (#3075)", () => {
   assert.ok(STORE_PARITY.collections.products.item_fields.includes("category"));
 });
 
+test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
+  assert.deepEqual([...CANONICAL_BLOCK_PARITY.Cards.fields].sort(), [
+    "columns",
+    "style",
+    "subtitle",
+    "title",
+  ]);
+  assert.deepEqual([...CANONICAL_BLOCK_PARITY.Testimonials.fields].sort(), [
+    "layout",
+    "title",
+  ]);
+  assert.ok(
+    CANONICAL_BLOCK_PARITY.Testimonials.repeatable?.items.includes("rating"),
+  );
+});
+
 test("dist schemas present after build (optional)", () => {
   // Build is a separate step; skip if dist missing (fresh clone pre-build).
   if (!existsSync(join(root, "dist/schemas/blocks.d.ts"))) {
