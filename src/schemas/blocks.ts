@@ -40,6 +40,9 @@ export type CardItem = {
 export type CardsData = {
   title?: string;
   subtitle?: string;
+  /** WS1 (#3882): closed-set — fuera de rango → default del backend + warning. */
+  columns?: "2" | "3" | "4";
+  style?: "grid" | "feature" | "minimal";
   cards?: CardItem[];
 };
 
@@ -47,10 +50,14 @@ export type TestimonialItem = {
   author?: string;
   role?: string;
   quote?: string;
+  /** WS1 (#3882): dígito 1–5 como string; "" = sin puntaje (opcional). */
+  rating?: string;
 };
 
 export type TestimonialsData = {
   title?: string;
+  /** WS1 (#3882): closed-set — fuera de rango → default del backend + warning. */
+  layout?: "grilla" | "destacado" | "carrusel" | "minimal";
   items?: TestimonialItem[];
 };
 
@@ -77,12 +84,12 @@ export const CANONICAL_BLOCK_PARITY: Record<
     repeatable: { images: ["alt", "caption"] },
   },
   Cards: {
-    fields: ["title", "subtitle"],
+    fields: ["title", "subtitle", "columns", "style"],
     repeatable: { cards: ["heading", "text", "link_label", "link_url"] },
   },
   Testimonials: {
-    fields: ["title"],
-    repeatable: { items: ["author", "role", "quote"] },
+    fields: ["title", "layout"],
+    repeatable: { items: ["author", "role", "quote", "rating"] },
   },
   CTA: {
     fields: ["headline", "subtext", "button_label", "button_url"],
