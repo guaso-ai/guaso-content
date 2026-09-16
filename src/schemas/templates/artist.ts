@@ -29,6 +29,8 @@ export type ArtistProduct = {
   quantity?: number;
   availability?: string;
   featured?: boolean;
+  tags?: string[];
+  compareAtPrice?: number;
 };
 
 export type ArtistGalleryImage = {
@@ -121,7 +123,7 @@ export const ARTIST_PARITY = {
     },
     products: {
       content_key: "products/products",
-      item_fields: ["availability", "category", "description", "featured", "name", "price", "quantity"],
+      item_fields: ["availability", "category", "compareAtPrice", "description", "featured", "name", "price", "quantity", "tags"],
       id_field: "slug",
     },
     gallery: {

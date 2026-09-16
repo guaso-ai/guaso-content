@@ -11,6 +11,8 @@ export type StoreProduct = {
   price?: number;
   quantity?: number;
   availability?: Availability;
+  tags?: string[];
+  compareAtPrice?: number;
 };
 
 export type StoreHomePage = {
@@ -55,7 +57,7 @@ export const STORE_PARITY = {
   collections: {
     products: {
       content_key: "products/products",
-      item_fields: ["availability", "category", "description", "featured", "name", "price", "quantity"],
+      item_fields: ["availability", "category", "compareAtPrice", "description", "featured", "name", "price", "quantity", "tags"],
       id_field: "slug",
     },
   },
