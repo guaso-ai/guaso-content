@@ -42,6 +42,13 @@ test("CANONICAL_BLOCK_PARITY has 5 block types", () => {
     "Testimonials",
   ]);
   assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images.includes("url"));
+  assert.deepEqual(CANONICAL_BLOCK_PARITY.Gallery.fields, [
+    "title",
+    "columns",
+    "style",
+  ]);
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("image_side"));
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("mode"));
 });
 
 test("each template exports a *_PARITY const", () => {
@@ -159,6 +166,17 @@ test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
   assert.ok(
     CANONICAL_BLOCK_PARITY.Testimonials.repeatable?.items.includes("rating"),
   );
+});
+
+test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
+  assert.deepEqual([...CANONICAL_BLOCK_PARITY.Gallery.fields].sort(), [
+    "columns",
+    "style",
+    "title",
+  ]);
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("image_side"));
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("mode"));
+  assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images.includes("url"));
 });
 
 test("dist schemas present after build (optional)", () => {
