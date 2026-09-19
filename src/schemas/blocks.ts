@@ -16,6 +16,9 @@ export type RichSectionData = {
   cta_url?: string;
   align?: "left" | "center";
   image_url?: string;
+  /** WS2 (#3883): closed-set — fuera de rango → default del backend + warning. */
+  image_side?: "left" | "right";
+  mode?: "split" | "centrado" | "checklist";
 };
 
 export type GalleryImage = {
@@ -28,6 +31,9 @@ export type GalleryImage = {
 export type GalleryData = {
   title?: string;
   images?: GalleryImage[];
+  /** WS2 (#3883): closed-set — fuera de rango → default del backend + warning. */
+  columns?: "2" | "3" | "4";
+  style?: "grilla" | "masonry" | "carrusel";
 };
 
 export type CardItem = {
@@ -77,10 +83,19 @@ export const CANONICAL_BLOCK_PARITY: Record<
   { fields: readonly string[]; repeatable?: Record<string, readonly string[]> }
 > = {
   RichSection: {
-    fields: ["title", "body", "cta_label", "cta_url", "align", "image_url"],
+    fields: [
+      "title",
+      "body",
+      "cta_label",
+      "cta_url",
+      "align",
+      "image_url",
+      "image_side",
+      "mode",
+    ],
   },
   Gallery: {
-    fields: ["title"],
+    fields: ["title", "columns", "style"],
     repeatable: { images: ["alt", "caption"] },
   },
   Cards: {
