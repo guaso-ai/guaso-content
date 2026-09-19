@@ -179,6 +179,18 @@ test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
   assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images.includes("url"));
 });
 
+test("#3884 WS3 CTA variants en PARITY", () => {
+  assert.deepEqual([...CANONICAL_BLOCK_PARITY.CTA.fields].sort(), [
+    "align",
+    "button_label",
+    "button_url",
+    "headline",
+    "image_url",
+    "style",
+    "subtext",
+  ]);
+});
+
 test("dist schemas present after build (optional)", () => {
   // Build is a separate step; skip if dist missing (fresh clone pre-build).
   if (!existsSync(join(root, "dist/schemas/blocks.d.ts"))) {

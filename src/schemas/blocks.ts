@@ -72,6 +72,11 @@ export type CTAData = {
   subtext?: string;
   button_label?: string;
   button_url?: string;
+  /** WS3 (#3884): closed-set — fuera de rango → default del backend + warning. */
+  style?: "banda" | "foto" | "split";
+  align?: "left" | "center" | "right";
+  /** Runtime/upload; PY `image_fields` imagen→image_url (no va en `fields`). */
+  image_url?: string;
 };
 
 /**
@@ -107,6 +112,14 @@ export const CANONICAL_BLOCK_PARITY: Record<
     repeatable: { items: ["author", "role", "quote", "rating"] },
   },
   CTA: {
-    fields: ["headline", "subtext", "button_label", "button_url"],
+    fields: [
+      "headline",
+      "subtext",
+      "button_label",
+      "button_url",
+      "style",
+      "align",
+      "image_url",
+    ],
   },
 };
