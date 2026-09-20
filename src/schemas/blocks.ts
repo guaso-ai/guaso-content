@@ -58,6 +58,8 @@ export type TestimonialItem = {
   quote?: string;
   /** WS1 (#3882): dígito 1–5 como string; "" = sin puntaje (opcional). */
   rating?: string;
+  /** Runtime/upload; PY `array_image_fields` items→avatar (máx 500). */
+  avatar?: string;
 };
 
 export type TestimonialsData = {
@@ -109,7 +111,7 @@ export const CANONICAL_BLOCK_PARITY: Record<
   },
   Testimonials: {
     fields: ["title", "layout"],
-    repeatable: { items: ["author", "role", "quote", "rating"] },
+    repeatable: { items: ["author", "role", "quote", "rating", "avatar"] },
   },
   CTA: {
     fields: [

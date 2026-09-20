@@ -175,6 +175,9 @@ test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
   assert.ok(
     CANONICAL_BLOCK_PARITY.Testimonials.repeatable?.items.includes("rating"),
   );
+  assert.ok(
+    CANONICAL_BLOCK_PARITY.Testimonials.repeatable?.items.includes("avatar"),
+  );
 });
 
 test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
