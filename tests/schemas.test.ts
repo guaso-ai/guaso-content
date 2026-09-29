@@ -118,6 +118,15 @@ test("seed keys residuales #3642 en PARITY", () => {
   );
 });
 
+test("#3987 professional about y contact declaran section_headings", () => {
+  const about = PROFESSIONAL_PARITY.pages.about as readonly string[];
+  const contact = PROFESSIONAL_PARITY.pages.contact as readonly string[];
+  const home = PROFESSIONAL_PARITY.pages.home as readonly string[];
+  assert.ok(about.includes("section_headings"));
+  assert.ok(contact.includes("section_headings"));
+  assert.ok(!home.includes("section_headings"));
+});
+
 test("#3811 pages.home sunset: fields migrados no están en PARITY", () => {
   const beautyHome = BEAUTY_PARITY.pages.home as readonly string[];
   assert.ok(!beautyHome.includes("testimonials"));
