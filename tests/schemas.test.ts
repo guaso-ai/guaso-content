@@ -32,13 +32,16 @@ test("TEMPLATE_IDS has 9 canonical templates", () => {
   ]);
 });
 
-test("CANONICAL_BLOCK_PARITY has 5 block types", () => {
+test("CANONICAL_BLOCK_PARITY has 8 block types", () => {
   const keys = Object.keys(CANONICAL_BLOCK_PARITY).sort();
   assert.deepEqual(keys, [
     "CTA",
     "Cards",
+    "FAQ",
     "Gallery",
     "RichSection",
+    "Stats",
+    "Steps",
     "Testimonials",
   ]);
   assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images.includes("url"));
