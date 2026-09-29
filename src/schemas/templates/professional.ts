@@ -22,6 +22,11 @@ export type ProfessionalTeamMember = {
 /** Empty fields — home is blocks target only (modo creativo). */
 export type ProfessionalHomePage = Record<string, never>;
 
+export type ProfessionalSectionHeading = {
+  key?: string;
+  label?: string;
+};
+
 export type ProfessionalAboutPage = {
   bio?: string;
   mission?: string;
@@ -29,11 +34,13 @@ export type ProfessionalAboutPage = {
   stats?: unknown;
   timeline?: unknown;
   values?: unknown;
+  section_headings?: ProfessionalSectionHeading[];
 };
 
 export type ProfessionalContactPage = {
   location?: string;
   availability?: string;
+  section_headings?: ProfessionalSectionHeading[];
 };
 
 export type ProfessionalConfig = SiteColorConfig & {
@@ -74,11 +81,12 @@ export const PROFESSIONAL_PARITY = {
         "bio",
         "credentials",
         "mission",
+        "section_headings",
         "stats",
         "timeline",
         "values",
       ],
-    contact: ["location", "availability"],
+    contact: ["location", "availability", "section_headings"],
   },
   collections: {
     services: {
