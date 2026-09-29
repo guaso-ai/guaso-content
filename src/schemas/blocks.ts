@@ -7,7 +7,10 @@ export type CanonicalBlockType =
   | "Gallery"
   | "Cards"
   | "Testimonials"
-  | "CTA";
+  | "CTA"
+  | "FAQ"
+  | "Stats"
+  | "Steps";
 
 export type RichSectionData = {
   title?: string;
@@ -81,6 +84,38 @@ export type CTAData = {
   image_url?: string;
 };
 
+export type FaqItem = {
+  question?: string;
+  answer?: string;
+};
+
+export type FAQData = {
+  title?: string;
+  questions?: FaqItem[];
+};
+
+export type StatMetric = {
+  value?: string;
+  label?: string;
+};
+
+export type StatsData = {
+  title?: string;
+  intro?: string;
+  metrics?: StatMetric[];
+};
+
+export type StepItem = {
+  heading?: string;
+  text?: string;
+};
+
+export type StepsData = {
+  title?: string;
+  intro?: string;
+  steps?: StepItem[];
+};
+
 /**
  * Fingerprint for drift guard — field keys (+ image_fields values + repeatable
  * inner keys). Gallery `url` is runtime-only and must NOT appear here.
@@ -123,5 +158,17 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "align",
       "image_url",
     ],
+  },
+  FAQ: {
+    fields: ["title"],
+    repeatable: { questions: ["question", "answer"] },
+  },
+  Stats: {
+    fields: ["title", "intro"],
+    repeatable: { metrics: ["value", "label"] },
+  },
+  Steps: {
+    fields: ["title", "intro"],
+    repeatable: { steps: ["heading", "text"] },
   },
 };
