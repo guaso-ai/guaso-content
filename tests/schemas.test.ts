@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 import {
   CANONICAL_BLOCK_PARITY,
+  GRILLA_PARITY,
+  GRILLA_PRESET_IDS,
   TEMPLATE_IDS,
 } from "../src/schemas/index.ts";
 import { STORE_PARITY } from "../src/schemas/templates/store.ts";
@@ -204,6 +206,57 @@ test("#3884 WS3 CTA variants en PARITY", () => {
     "style",
     "subtext",
   ]);
+});
+
+test("#4306 Grilla en GRILLA_PARITY: closed-sets y defaults alineados al backend", () => {
+  assert.deepEqual(GRILLA_PARITY.closedSets, {
+    columnas: ["1", "2", "3", "4"],
+    espacio: ["chico", "medio", "grande"],
+    envolver: ["si", "no"],
+    alineacion_horizontal: ["inicio", "centro", "fin"],
+    alineacion_vertical: ["arriba", "centrado", "abajo"],
+    altura_igual: ["si", "no"],
+    orden_mobile: ["normal", "invertido"],
+  });
+  assert.deepEqual(GRILLA_PARITY.defaults, {
+    columnas: "2",
+    espacio: "medio",
+    envolver: "no",
+    alineacion_horizontal: "inicio",
+    alineacion_vertical: "arriba",
+    altura_igual: "no",
+    orden_mobile: "normal",
+  });
+  for (const [field, value] of Object.entries(GRILLA_PARITY.defaults)) {
+    assert.ok(
+      (GRILLA_PARITY.closedSets as Record<string, readonly string[]>)[field]!.includes(value),
+      `default ${field}=${value} fuera de closed-set`,
+    );
+  }
+});
+
+test("#4306 Grilla presets por id y proporción por hijo (sin duplicar anchos)", () => {
+  assert.deepEqual([...GRILLA_PRESET_IDS], [
+    "mitad_y_mitad",
+    "hero_2_3_1_3",
+    "3_tarjetas",
+    "banda_de_4",
+  ]);
+  assert.deepEqual([...GRILLA_PARITY.presets], [...GRILLA_PRESET_IDS]);
+  assert.deepEqual([...GRILLA_PARITY.child.closedSets.proporcion], [
+    "1/4",
+    "1/3",
+    "1/2",
+    "2/3",
+    "3/4",
+    "igual",
+  ]);
+  assert.equal(GRILLA_PARITY.child.defaults.proporcion, "igual");
+});
+
+test("#4306 Grilla fuera de CANONICAL_BLOCK_PARITY (paridad guard = _CANONICAL_BLOCKS)", () => {
+  assert.equal("Grilla" in CANONICAL_BLOCK_PARITY, false);
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 8);
 });
 
 test("dist schemas present after build (optional)", () => {
