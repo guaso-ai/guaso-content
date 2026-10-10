@@ -51,6 +51,11 @@ test("CANONICAL_BLOCK_PARITY has 8 block types", () => {
     "title",
     "columns",
     "style",
+    "surface",
+    "width",
+    "spacing",
+    "visibility",
+    "anchor",
   ]);
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("image_side"));
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("mode"));
@@ -168,14 +173,24 @@ test("STORE_PARITY store home hero slots and products.category (#3075)", () => {
 
 test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.Cards.fields].sort(), [
+    "anchor",
     "columns",
+    "spacing",
     "style",
     "subtitle",
+    "surface",
     "title",
+    "visibility",
+    "width",
   ]);
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.Testimonials.fields].sort(), [
+    "anchor",
     "layout",
+    "spacing",
+    "surface",
     "title",
+    "visibility",
+    "width",
   ]);
   assert.ok(
     CANONICAL_BLOCK_PARITY.Testimonials.repeatable?.items.includes("rating"),
@@ -187,9 +202,14 @@ test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
 
 test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.Gallery.fields].sort(), [
+    "anchor",
     "columns",
+    "spacing",
     "style",
+    "surface",
     "title",
+    "visibility",
+    "width",
   ]);
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("image_side"));
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("mode"));
@@ -199,13 +219,30 @@ test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
 test("#3884 WS3 CTA variants en PARITY", () => {
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.CTA.fields].sort(), [
     "align",
+    "anchor",
     "button_label",
     "button_url",
     "headline",
     "image_url",
+    "spacing",
     "style",
     "subtext",
+    "surface",
+    "visibility",
+    "width",
   ]);
+});
+
+test("#4345 props comunes de layout en los 8 bloques canónicos (paridad con PY)", () => {
+  const LAYOUT_PROPS = ["surface", "width", "spacing", "visibility", "anchor"];
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 8);
+  for (const [blockType, meta] of Object.entries(CANONICAL_BLOCK_PARITY)) {
+    for (const prop of LAYOUT_PROPS) {
+      assert.ok(meta.fields.includes(prop), `${blockType} sin prop de layout ${prop}`);
+    }
+    // Sin duplicados: el guard PY↔SDK compara conjuntos, pero un duplicado es ruido de paridad.
+    assert.equal(new Set(meta.fields).size, meta.fields.length, `${blockType} fields duplicados`);
+  }
 });
 
 test("#4306 Grilla en GRILLA_PARITY: closed-sets y defaults alineados al backend", () => {
