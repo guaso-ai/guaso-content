@@ -148,6 +148,10 @@ test("#3811 pages.home sunset: fields migrados no están en PARITY", () => {
   assert.ok(!reHome.includes("features"));
 });
 
+test("#4251 ARTIST_PARITY home incluye cta_primary_url", () => {
+  assert.ok(ARTIST_PARITY.pages.home.includes("cta_primary_url"));
+});
+
 test("#3812 ARTIST_PARITY products + nav.store; BIO blog date", () => {
   assert.equal(ARTIST_PARITY.collections.products.content_key, "products/products");
   assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("featured"));
