@@ -51,6 +51,7 @@ test("CANONICAL_BLOCK_PARITY has 8 block types", () => {
     "title",
     "columns",
     "style",
+    "source",
     "surface",
     "width",
     "spacing",
@@ -212,6 +213,7 @@ test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.Gallery.fields].sort(), [
     "anchor",
     "columns",
+    "source",
     "spacing",
     "style",
     "surface",
@@ -222,6 +224,11 @@ test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("image_side"));
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("mode"));
   assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images.includes("url"));
+});
+
+test("#4265 Gallery: source en fields y ref en items (sin url en PY)", () => {
+  assert.ok(CANONICAL_BLOCK_PARITY.Gallery.fields.includes("source"));
+  assert.deepEqual(CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images, ["alt", "caption", "ref"]);
 });
 
 test("#3884 WS3 CTA variants en PARITY", () => {
