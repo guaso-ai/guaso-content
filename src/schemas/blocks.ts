@@ -12,7 +12,26 @@ export type CanonicalBlockType =
   | "Stats"
   | "Steps";
 
-export type RichSectionData = {
+/**
+ * Props comunes de layout (#4345 · SoT PY: `LAYOUT_PROP_CLOSESETS` / `LAYOUT_PROP_DEFAULTS`
+ * en `content_editor_service.py`). Fuera de closed-set → default (kit) sin error de render.
+ * Defaults neutros = render actual: surface=neutro, width=normal, spacing=medio, visibility=todos.
+ */
+export type LayoutSurface = "neutro" | "suave" | "oscuro" | "acento";
+export type LayoutWidth = "angosto" | "normal" | "completo";
+export type LayoutSpacing = "chico" | "medio" | "grande";
+export type LayoutVisibility = "todos" | "solo_desktop" | "solo_mobile";
+
+export type LayoutProps = {
+  surface?: LayoutSurface;
+  width?: LayoutWidth;
+  spacing?: LayoutSpacing;
+  visibility?: LayoutVisibility;
+  /** Slug `^[a-z][a-z0-9-]{0,39}$` → `id` del DOM; inválido → sin ancla. */
+  anchor?: string;
+};
+
+export type RichSectionData = LayoutProps & {
   title?: string;
   body?: string;
   cta_label?: string;
@@ -31,7 +50,7 @@ export type GalleryImage = {
   caption?: string;
 };
 
-export type GalleryData = {
+export type GalleryData = LayoutProps & {
   title?: string;
   images?: GalleryImage[];
   /** WS2 (#3883): closed-set — fuera de rango → default del backend + warning. */
@@ -46,7 +65,7 @@ export type CardItem = {
   link_url?: string;
 };
 
-export type CardsData = {
+export type CardsData = LayoutProps & {
   title?: string;
   subtitle?: string;
   /** WS1 (#3882): closed-set — fuera de rango → default del backend + warning. */
@@ -65,14 +84,14 @@ export type TestimonialItem = {
   avatar?: string;
 };
 
-export type TestimonialsData = {
+export type TestimonialsData = LayoutProps & {
   title?: string;
   /** WS1 (#3882): closed-set — fuera de rango → default del backend + warning. */
   layout?: "grilla" | "destacado" | "carrusel" | "minimal";
   items?: TestimonialItem[];
 };
 
-export type CTAData = {
+export type CTAData = LayoutProps & {
   headline?: string;
   subtext?: string;
   button_label?: string;
@@ -89,7 +108,7 @@ export type FaqItem = {
   answer?: string;
 };
 
-export type FAQData = {
+export type FAQData = LayoutProps & {
   title?: string;
   questions?: FaqItem[];
 };
@@ -99,7 +118,7 @@ export type StatMetric = {
   label?: string;
 };
 
-export type StatsData = {
+export type StatsData = LayoutProps & {
   title?: string;
   intro?: string;
   metrics?: StatMetric[];
@@ -110,7 +129,7 @@ export type StepItem = {
   text?: string;
 };
 
-export type StepsData = {
+export type StepsData = LayoutProps & {
   title?: string;
   intro?: string;
   steps?: StepItem[];
@@ -134,18 +153,50 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "image_url",
       "image_side",
       "mode",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
     ],
   },
   Gallery: {
-    fields: ["title", "columns", "style"],
+    fields: [
+      "title",
+      "columns",
+      "style",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
     repeatable: { images: ["alt", "caption"] },
   },
   Cards: {
-    fields: ["title", "subtitle", "columns", "style"],
+    fields: [
+      "title",
+      "subtitle",
+      "columns",
+      "style",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
     repeatable: { cards: ["heading", "text", "link_label", "link_url"] },
   },
   Testimonials: {
-    fields: ["title", "layout"],
+    fields: [
+      "title",
+      "layout",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
     repeatable: { items: ["author", "role", "quote", "rating", "avatar"] },
   },
   CTA: {
@@ -157,18 +208,46 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "style",
       "align",
       "image_url",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
     ],
   },
   FAQ: {
-    fields: ["title"],
+    fields: [
+      "title",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
     repeatable: { questions: ["question", "answer"] },
   },
   Stats: {
-    fields: ["title", "intro"],
+    fields: [
+      "title",
+      "intro",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
     repeatable: { metrics: ["value", "label"] },
   },
   Steps: {
-    fields: ["title", "intro"],
+    fields: [
+      "title",
+      "intro",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
     repeatable: { steps: ["heading", "text"] },
   },
 };
