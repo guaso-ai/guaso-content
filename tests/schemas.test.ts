@@ -152,6 +152,10 @@ test("#4251 ARTIST_PARITY home incluye cta_primary_url", () => {
   assert.ok(ARTIST_PARITY.pages.home.includes("cta_primary_url"));
 });
 
+test("#4249 ARTIST_PARITY home incluye hero_portrait", () => {
+  assert.ok(ARTIST_PARITY.pages.home.includes("hero_portrait"));
+});
+
 test("#3812 ARTIST_PARITY products + nav.store; BIO blog date", () => {
   assert.equal(ARTIST_PARITY.collections.products.content_key, "products/products");
   assert.ok(ARTIST_PARITY.collections.products.item_fields.includes("featured"));
