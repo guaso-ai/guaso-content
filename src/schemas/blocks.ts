@@ -44,15 +44,19 @@ export type RichSectionData = LayoutProps & {
 };
 
 export type GalleryImage = {
-  /** Runtime/upload; not in PY repeatable schema (alt/caption only). */
+  /** Runtime/upload; not in PY repeatable schema (alt/caption/ref only). */
   url: string;
   alt?: string;
   caption?: string;
+  /** Slug de un ítem vivo de la colección `source` (#4265). Lo resuelve el template al render. */
+  ref?: string;
 };
 
 export type GalleryData = LayoutProps & {
   title?: string;
   images?: GalleryImage[];
+  /** Colección viva: "" = solo ítems propios; "projects"/"products" = resuelve `ref` y el modo automático (#4265). */
+  source?: "" | "projects" | "products";
   /** WS2 (#3883): closed-set — fuera de rango → default del backend + warning. */
   columns?: "2" | "3" | "4";
   style?: "grilla" | "masonry" | "carrusel";
@@ -165,13 +169,14 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "title",
       "columns",
       "style",
+      "source",
       "surface",
       "width",
       "spacing",
       "visibility",
       "anchor",
     ],
-    repeatable: { images: ["alt", "caption"] },
+    repeatable: { images: ["alt", "caption", "ref"] },
   },
   Cards: {
     fields: [
