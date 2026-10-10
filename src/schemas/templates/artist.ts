@@ -48,7 +48,6 @@ export type ArtistHomePage = {
   cta_primary?: string;
   cta_primary_url?: string;
   cta_secondary?: string;
-  featured_heading?: string;
   section_headings?: unknown;
 };
 
@@ -98,7 +97,6 @@ export const ARTIST_PARITY = {
         "cta_primary",
         "cta_primary_url",
         "cta_secondary",
-        "featured_heading",
         "hero_kicker",
         "hero_portrait",
         "hero_rail",
