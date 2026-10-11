@@ -52,6 +52,12 @@ test("CANONICAL_BLOCK_PARITY has 8 block types", () => {
     "columns",
     "style",
     "source",
+    "scale",
+    "emphasis",
+    "aspect",
+    "frame",
+    "fit",
+    "focal",
     "surface",
     "width",
     "spacing",
@@ -60,6 +66,25 @@ test("CANONICAL_BLOCK_PARITY has 8 block types", () => {
   ]);
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("image_side"));
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("mode"));
+});
+
+test("presentation props (#4266): tipografía en los 8 canónicos, imagen en RichSection/CTA/Gallery", () => {
+  for (const [name, block] of Object.entries(CANONICAL_BLOCK_PARITY)) {
+    assert.ok(block.fields.includes("scale"), `${name} sin scale`);
+    assert.ok(block.fields.includes("emphasis"), `${name} sin emphasis`);
+  }
+  const imageBlocks = ["RichSection", "Gallery", "CTA"] as const;
+  for (const name of imageBlocks) {
+    for (const key of ["aspect", "frame", "fit", "focal"]) {
+      assert.ok(
+        CANONICAL_BLOCK_PARITY[name].fields.includes(key),
+        `${name} sin ${key}`,
+      );
+    }
+  }
+  for (const name of ["Cards", "Testimonials", "FAQ", "Stats", "Steps"] as const) {
+    assert.ok(!CANONICAL_BLOCK_PARITY[name].fields.includes("aspect"), `${name} con aspect`);
+  }
 });
 
 test("each template exports a *_PARITY const", () => {
@@ -184,6 +209,8 @@ test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.Cards.fields].sort(), [
     "anchor",
     "columns",
+    "emphasis",
+    "scale",
     "spacing",
     "style",
     "subtitle",
@@ -194,7 +221,9 @@ test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
   ]);
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.Testimonials.fields].sort(), [
     "anchor",
+    "emphasis",
     "layout",
+    "scale",
     "spacing",
     "surface",
     "title",
@@ -212,7 +241,13 @@ test("#3882 WS1 Cards/Testimonials variants en PARITY", () => {
 test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.Gallery.fields].sort(), [
     "anchor",
+    "aspect",
     "columns",
+    "emphasis",
+    "fit",
+    "focal",
+    "frame",
+    "scale",
     "source",
     "spacing",
     "style",
@@ -235,10 +270,16 @@ test("#3884 WS3 CTA variants en PARITY", () => {
   assert.deepEqual([...CANONICAL_BLOCK_PARITY.CTA.fields].sort(), [
     "align",
     "anchor",
+    "aspect",
     "button_label",
     "button_url",
+    "emphasis",
+    "fit",
+    "focal",
+    "frame",
     "headline",
     "image_url",
+    "scale",
     "spacing",
     "style",
     "subtext",
