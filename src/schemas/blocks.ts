@@ -31,7 +31,32 @@ export type LayoutProps = {
   anchor?: string;
 };
 
-export type RichSectionData = LayoutProps & {
+/**
+ * Props de presentación (#4266 · SoT PY: `PRESENTATION_TYPO_CLOSESETS` / `PRESENTATION_IMAGE_CLOSESETS`
+ * en `content_editor_service.py`). Tipografía: los 8 bloques canónicos. Imagen: RichSection, CTA y Gallery.
+ * Fuera de closed-set → default del bloque (kit) sin error de render.
+ * Defaults = render actual: scale=medio, emphasis=normal; aspect RichSection 4:5 · CTA 4:3 · Gallery 4:3; frame=borde, fit=cover, focal=centro.
+ */
+export type TypoScale = "chico" | "medio" | "grande";
+export type TypoEmphasis = "normal" | "fuerte";
+export type ImageAspect = "4:5" | "4:3" | "1:1" | "16:9";
+export type ImageFrame = "borde" | "sin_borde" | "sombra";
+export type ImageFit = "cover" | "contain";
+export type ImageFocal = "centro" | "arriba" | "abajo" | "izquierda" | "derecha";
+
+export type TypoProps = {
+  scale?: TypoScale;
+  emphasis?: TypoEmphasis;
+};
+
+export type ImageProps = {
+  aspect?: ImageAspect;
+  frame?: ImageFrame;
+  fit?: ImageFit;
+  focal?: ImageFocal;
+};
+
+export type RichSectionData = LayoutProps & TypoProps & ImageProps & {
   title?: string;
   body?: string;
   cta_label?: string;
@@ -52,7 +77,7 @@ export type GalleryImage = {
   ref?: string;
 };
 
-export type GalleryData = LayoutProps & {
+export type GalleryData = LayoutProps & TypoProps & ImageProps & {
   title?: string;
   images?: GalleryImage[];
   /** Colección viva: "" = solo ítems propios; "projects"/"products" = resuelve `ref` y el modo automático (#4265). */
@@ -69,7 +94,7 @@ export type CardItem = {
   link_url?: string;
 };
 
-export type CardsData = LayoutProps & {
+export type CardsData = LayoutProps & TypoProps & {
   title?: string;
   subtitle?: string;
   /** WS1 (#3882): closed-set — fuera de rango → default del backend + warning. */
@@ -88,14 +113,14 @@ export type TestimonialItem = {
   avatar?: string;
 };
 
-export type TestimonialsData = LayoutProps & {
+export type TestimonialsData = LayoutProps & TypoProps & {
   title?: string;
   /** WS1 (#3882): closed-set — fuera de rango → default del backend + warning. */
   layout?: "grilla" | "destacado" | "carrusel" | "minimal";
   items?: TestimonialItem[];
 };
 
-export type CTAData = LayoutProps & {
+export type CTAData = LayoutProps & TypoProps & ImageProps & {
   headline?: string;
   subtext?: string;
   button_label?: string;
@@ -112,7 +137,7 @@ export type FaqItem = {
   answer?: string;
 };
 
-export type FAQData = LayoutProps & {
+export type FAQData = LayoutProps & TypoProps & {
   title?: string;
   questions?: FaqItem[];
 };
@@ -122,7 +147,7 @@ export type StatMetric = {
   label?: string;
 };
 
-export type StatsData = LayoutProps & {
+export type StatsData = LayoutProps & TypoProps & {
   title?: string;
   intro?: string;
   metrics?: StatMetric[];
@@ -133,7 +158,7 @@ export type StepItem = {
   text?: string;
 };
 
-export type StepsData = LayoutProps & {
+export type StepsData = LayoutProps & TypoProps & {
   title?: string;
   intro?: string;
   steps?: StepItem[];
@@ -157,6 +182,12 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "image_url",
       "image_side",
       "mode",
+      "scale",
+      "emphasis",
+      "aspect",
+      "frame",
+      "fit",
+      "focal",
       "surface",
       "width",
       "spacing",
@@ -170,6 +201,12 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "columns",
       "style",
       "source",
+      "scale",
+      "emphasis",
+      "aspect",
+      "frame",
+      "fit",
+      "focal",
       "surface",
       "width",
       "spacing",
@@ -184,6 +221,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "subtitle",
       "columns",
       "style",
+      "scale",
+      "emphasis",
       "surface",
       "width",
       "spacing",
@@ -196,6 +235,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
     fields: [
       "title",
       "layout",
+      "scale",
+      "emphasis",
       "surface",
       "width",
       "spacing",
@@ -213,6 +254,12 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "style",
       "align",
       "image_url",
+      "scale",
+      "emphasis",
+      "aspect",
+      "frame",
+      "fit",
+      "focal",
       "surface",
       "width",
       "spacing",
@@ -223,6 +270,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
   FAQ: {
     fields: [
       "title",
+      "scale",
+      "emphasis",
       "surface",
       "width",
       "spacing",
@@ -235,6 +284,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
     fields: [
       "title",
       "intro",
+      "scale",
+      "emphasis",
       "surface",
       "width",
       "spacing",
@@ -247,6 +298,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
     fields: [
       "title",
       "intro",
+      "scale",
+      "emphasis",
       "surface",
       "width",
       "spacing",
