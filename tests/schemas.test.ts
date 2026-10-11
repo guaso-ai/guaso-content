@@ -49,6 +49,8 @@ test("CANONICAL_BLOCK_PARITY has 8 block types", () => {
   assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images.includes("url"));
   assert.deepEqual(CANONICAL_BLOCK_PARITY.Gallery.fields, [
     "title",
+    "kicker",
+    "link_label",
     "columns",
     "style",
     "source",
@@ -247,6 +249,8 @@ test("#3883 WS2 Gallery/RichSection variants en PARITY", () => {
     "fit",
     "focal",
     "frame",
+    "kicker",
+    "link_label",
     "scale",
     "source",
     "spacing",

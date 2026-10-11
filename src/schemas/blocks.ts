@@ -87,6 +87,10 @@ export type GalleryImage = {
 
 export type GalleryData = LayoutProps & TypoProps & ImageProps & {
   title?: string;
+  /** Eyebrow sobre el título (#4363). Ausente → chrome del template. */
+  kicker?: string;
+  /** Link "ver todo" (#4363). Destino por `source` (projects → /projects, products → /store); sin URL libre. */
+  link_label?: string;
   images?: GalleryImage[];
   /** Colección viva: "" = solo ítems propios; "projects"/"products" = resuelve `ref` y el modo automático (#4265). */
   source?: "" | "projects" | "products";
@@ -211,6 +215,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
   Gallery: {
     fields: [
       "title",
+      "kicker",
+      "link_label",
       "columns",
       "style",
       "source",
