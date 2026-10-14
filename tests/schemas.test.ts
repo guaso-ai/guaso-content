@@ -7,7 +7,9 @@ import {
   CANONICAL_BLOCK_PARITY,
   GRILLA_PARITY,
   GRILLA_PRESET_IDS,
+  RICH_SECTION_FONDO_VALUES,
   TEMPLATE_IDS,
+  isValidVideoUrl,
 } from "../src/schemas/index.ts";
 import { STORE_PARITY } from "../src/schemas/templates/store.ts";
 import { ARTIST_PARITY } from "../src/schemas/templates/artist.ts";
@@ -375,5 +377,108 @@ test("dist schemas present after build (optional)", () => {
   assert.equal(
     existsSync(join(root, "dist/schemas/templates/store.d.ts")),
     true,
+  );
+});
+
+test("#4566 RichSection fondo + video_url en CANONICAL_BLOCK_PARITY (camino feliz)", () => {
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("fondo"));
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("video_url"));
+  assert.deepEqual([...RICH_SECTION_FONDO_VALUES], ["normal", "completo"]);
+  assert.equal(
+    new Set(CANONICAL_BLOCK_PARITY.RichSection.fields).size,
+    CANONICAL_BLOCK_PARITY.RichSection.fields.length,
+    "RichSection fields duplicados",
+  );
+  for (const url of [
+    "https://cdn.example.com/hero.mp4",
+    "https://cdn.example.com/hero.webm",
+    "https://cdn.example.com/media/hero.webm?v=2",
+    "https://cdn.example.com/HERO.MP4",
+  ]) {
+    assert.equal(isValidVideoUrl(url), true, `debería aceptar ${url}`);
+  }
+});
+
+test("#4566 video_url inválida: no https, extensión no permitida, forma rota", () => {
+  for (const url of [
+    "http://cdn.example.com/hero.mp4",
+    "ftp://cdn.example.com/hero.mp4",
+    "javascript:alert(1)//hero.mp4",
+    "https://cdn.example.com/hero.mov",
+    "https://cdn.example.com/hero.mp4.exe",
+    "https://cdn.example.com/hero",
+    "https://cdn.example.com/page?file=hero.mp4",
+    "https:///hero.mp4",
+    "hero.mp4",
+    "",
+  ]) {
+    assert.equal(isValidVideoUrl(url), false, `debería rechazar ${url}`);
+  }
+});
+
+test("#4566 video_url rechaza userinfo (user:pass@host)", () => {
+  assert.equal(
+    isValidVideoUrl("https://user:pass@cdn.example.com/hero.mp4"),
+    false,
+    "debería rechazar userinfo en video_url",
+  );
+  assert.equal(
+    isValidVideoUrl("https://user@cdn.example.com/hero.webm"),
+    false,
+    "debería rechazar username sin password",
+  );
+});
+
+test("#4566 video_url rechaza comillas en el valor crudo (breakout de atributo)", () => {
+  assert.equal(
+    isValidVideoUrl('https://cdn.example.com/"onerror=alert(1).mp4'),
+    false,
+    "debería rechazar comilla doble",
+  );
+  assert.equal(
+    isValidVideoUrl("https://cdn.example.com/'onerror=alert(1).webm"),
+    false,
+    "debería rechazar comilla simple",
+  );
+});
+
+test("#4566 video_url rechaza espacios y caracteres de control en el valor crudo", () => {
+  for (const url of [
+    " https://cdn.example.com/hero.mp4 ",
+    "https://cdn.example.com/hero.mp4\n",
+    "https://cdn.example.com/hero\t.mp4",
+    "https://cdn.example.com/my hero.mp4",
+  ]) {
+    assert.equal(isValidVideoUrl(url), false, `debería rechazar ${JSON.stringify(url)}`);
+  }
+});
+
+test("#4566 video_url rechaza controles C0 (\\x00-\\x1f) y DEL (\\x7f) en el valor crudo", () => {
+  assert.equal(
+    isValidVideoUrl("https://x.com/a\u0001.mp4"),
+    false,
+    "debería rechazar \\u0001 (control C0 no cubierto por \\s)",
+  );
+  assert.equal(
+    isValidVideoUrl("https://x.com/a\u007f.mp4"),
+    false,
+    "debería rechazar \\u007f (DEL)",
+  );
+  for (let code = 0x00; code <= 0x1f; code++) {
+    const url = `https://x.com/a${String.fromCharCode(code)}.mp4`;
+    assert.equal(isValidVideoUrl(url), false, `debería rechazar C0 ${code.toString(16)}`);
+  }
+});
+
+test("#4566 video_url rechaza scheme sin // (https:host/path)", () => {
+  assert.equal(
+    isValidVideoUrl("https:cdn.example.com/hero.mp4"),
+    false,
+    "debería rechazar https: sin //",
+  );
+  assert.equal(
+    isValidVideoUrl("https:/cdn.example.com/hero.webm"),
+    false,
+    "debería rechazar https: con una sola /",
   );
 });
