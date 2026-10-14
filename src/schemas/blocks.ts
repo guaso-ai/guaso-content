@@ -40,8 +40,9 @@ export type LayoutProps = {
 /** Escala tipográfica de los 8 canónicos (SoT PY: `PRESENTATION_TYPO_CLOSESETS`, 3 valores). */
 export const TYPO_SCALE_VALUES = ["chico", "medio", "grande"] as const;
 /**
- * RichSection suma `display` = hero tipográfico (#4282 · SoT PY: `PRESENTATION_HERO_SCALE_CLOSESET`).
- * Válido solo sin `image_url` y con `mode=centrado`; fuera de esa forma el backend normaliza a `grande`.
+ * RichSection suma `display` = hero tipográfico (#4282).
+ * ⚠️ pendiente de verificar: espejo PY `PRESENTATION_HERO_SCALE_CLOSESET` todavía NO existe en guaso-app origin/main (lo introduce #4282).
+ * Válido solo sin `image_url` y con `mode=centrado` (regla de forma PY, pendiente); fuera de esa forma el backend normaliza a `grande`.
  * En los otros 7 bloques `display` no es valor válido (el backend normaliza a `medio`).
  */
 export const RICH_SECTION_SCALE_VALUES = [...TYPO_SCALE_VALUES, "display"] as const;
@@ -103,7 +104,7 @@ export function isValidVideoUrl(value: string): boolean {
   return RICH_SECTION_VIDEO_EXTENSIONS.some((ext) => path.endsWith(ext));
 }
 
-export type RichSectionData = LayoutProps & TypoProps & ImageProps & {
+export type RichSectionData = LayoutProps & Omit<TypoProps, "scale"> & { scale?: RichSectionScale } & ImageProps & {
   title?: string;
   body?: string;
   cta_label?: string;
