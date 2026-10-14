@@ -79,8 +79,9 @@ export const RICH_SECTION_VIDEO_EXTENSIONS = [".mp4", ".webm"] as const;
  */
 export function isValidVideoUrl(value: string): boolean {
   // Forma del valor crudo: exige `https://` literal, sin espacios/control ni comillas/<>\.
+  // `\x00-\x1f\x7f` cubre controles C0 + DEL (no todos están en `\s`, p.ej. \u0001).
   if (!/^https:\/\//i.test(value)) return false;
-  if (/[\s"'<>\\]/.test(value)) return false;
+  if (/[\s"'<>\\\x00-\x1f\x7f]/.test(value)) return false;
   let url: URL;
   try {
     url = new URL(value);

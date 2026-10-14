@@ -453,6 +453,23 @@ test("#4566 video_url rechaza espacios y caracteres de control en el valor crudo
   }
 });
 
+test("#4566 video_url rechaza controles C0 (\\x00-\\x1f) y DEL (\\x7f) en el valor crudo", () => {
+  assert.equal(
+    isValidVideoUrl("https://x.com/a\u0001.mp4"),
+    false,
+    "debería rechazar \\u0001 (control C0 no cubierto por \\s)",
+  );
+  assert.equal(
+    isValidVideoUrl("https://x.com/a\u007f.mp4"),
+    false,
+    "debería rechazar \\u007f (DEL)",
+  );
+  for (let code = 0x00; code <= 0x1f; code++) {
+    const url = `https://x.com/a${String.fromCharCode(code)}.mp4`;
+    assert.equal(isValidVideoUrl(url), false, `debería rechazar C0 ${code.toString(16)}`);
+  }
+});
+
 test("#4566 video_url rechaza scheme sin // (https:host/path)", () => {
   assert.equal(
     isValidVideoUrl("https:cdn.example.com/hero.mp4"),
