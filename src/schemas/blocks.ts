@@ -78,6 +78,9 @@ export const RICH_SECTION_VIDEO_EXTENSIONS = [".mp4", ".webm"] as const;
  * Pura (sin red): valida forma, no que el recurso exista. Query/hash permitidos.
  */
 export function isValidVideoUrl(value: string): boolean {
+  // Forma del valor crudo: exige `https://` literal, sin espacios/control ni comillas/<>\.
+  if (!/^https:\/\//i.test(value)) return false;
+  if (/[\s"'<>\\]/.test(value)) return false;
   let url: URL;
   try {
     url = new URL(value);
@@ -85,6 +88,7 @@ export function isValidVideoUrl(value: string): boolean {
     return false;
   }
   if (url.protocol !== "https:" || !url.hostname) return false;
+  if (url.username || url.password) return false;
   const path = url.pathname.toLowerCase();
   return RICH_SECTION_VIDEO_EXTENSIONS.some((ext) => path.endsWith(ext));
 }

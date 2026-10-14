@@ -415,3 +415,53 @@ test("#4566 video_url inválida: no https, extensión no permitida, forma rota",
     assert.equal(isValidVideoUrl(url), false, `debería rechazar ${url}`);
   }
 });
+
+test("#4566 video_url rechaza userinfo (user:pass@host)", () => {
+  assert.equal(
+    isValidVideoUrl("https://user:pass@cdn.example.com/hero.mp4"),
+    false,
+    "debería rechazar userinfo en video_url",
+  );
+  assert.equal(
+    isValidVideoUrl("https://user@cdn.example.com/hero.webm"),
+    false,
+    "debería rechazar username sin password",
+  );
+});
+
+test("#4566 video_url rechaza comillas en el valor crudo (breakout de atributo)", () => {
+  assert.equal(
+    isValidVideoUrl('https://cdn.example.com/"onerror=alert(1).mp4'),
+    false,
+    "debería rechazar comilla doble",
+  );
+  assert.equal(
+    isValidVideoUrl("https://cdn.example.com/'onerror=alert(1).webm"),
+    false,
+    "debería rechazar comilla simple",
+  );
+});
+
+test("#4566 video_url rechaza espacios y caracteres de control en el valor crudo", () => {
+  for (const url of [
+    " https://cdn.example.com/hero.mp4 ",
+    "https://cdn.example.com/hero.mp4\n",
+    "https://cdn.example.com/hero\t.mp4",
+    "https://cdn.example.com/my hero.mp4",
+  ]) {
+    assert.equal(isValidVideoUrl(url), false, `debería rechazar ${JSON.stringify(url)}`);
+  }
+});
+
+test("#4566 video_url rechaza scheme sin // (https:host/path)", () => {
+  assert.equal(
+    isValidVideoUrl("https:cdn.example.com/hero.mp4"),
+    false,
+    "debería rechazar https: sin //",
+  );
+  assert.equal(
+    isValidVideoUrl("https:/cdn.example.com/hero.webm"),
+    false,
+    "debería rechazar https: con una sola /",
+  );
+});
