@@ -41,7 +41,7 @@ export type LayoutProps = {
 export const TYPO_SCALE_VALUES = ["chico", "medio", "grande"] as const;
 /**
  * RichSection suma `display` = hero tipográfico (#4282).
- * ⚠️ pendiente de verificar: espejo PY `PRESENTATION_HERO_SCALE_CLOSESET` todavía NO existe en guaso-app origin/main (lo introduce #4282).
+ * ⚠️ pendiente de verificar: el espejo PY del closed-set de hero aún no existe en guaso-app origin/main (lo introduce #4282).
  * Válido solo sin `image_url` y con `mode=centrado` (regla de forma PY, pendiente); fuera de esa forma el backend normaliza a `grande`.
  * En los otros 7 bloques `display` no es valor válido (el backend normaliza a `medio`).
  */

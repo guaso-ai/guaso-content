@@ -486,7 +486,7 @@ test("#4566 video_url rechaza scheme sin // (https:host/path)", () => {
 });
 
 test("#4282 escala: 8 canónicos con 3 valores; display solo en RichSection (closed-set SDK, sin paridad PY verificada)", () => {
-  // Solo compara arrays del SDK. ⚠️ pendiente de verificar contra PY: PRESENTATION_HERO_SCALE_CLOSESET no existe aún en origin/main.
+  // Solo compara arrays del SDK. ⚠️ pendiente de verificar contra PY: el espejo del closed-set de hero aún no existe en guaso-app origin/main (lo introduce #4282).
   assert.deepEqual([...TYPO_SCALE_VALUES], ["chico", "medio", "grande"]);
   assert.deepEqual([...RICH_SECTION_SCALE_VALUES], ["chico", "medio", "grande", "display"]);
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("scale"));
