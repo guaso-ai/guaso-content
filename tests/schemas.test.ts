@@ -7,7 +7,9 @@ import {
   CANONICAL_BLOCK_PARITY,
   GRILLA_PARITY,
   GRILLA_PRESET_IDS,
+  RICH_SECTION_FONDO_VALUES,
   TEMPLATE_IDS,
+  isValidVideoUrl,
 } from "../src/schemas/index.ts";
 import { STORE_PARITY } from "../src/schemas/templates/store.ts";
 import { ARTIST_PARITY } from "../src/schemas/templates/artist.ts";
@@ -376,4 +378,40 @@ test("dist schemas present after build (optional)", () => {
     existsSync(join(root, "dist/schemas/templates/store.d.ts")),
     true,
   );
+});
+
+test("#4566 RichSection fondo + video_url en CANONICAL_BLOCK_PARITY (camino feliz)", () => {
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("fondo"));
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("video_url"));
+  assert.deepEqual([...RICH_SECTION_FONDO_VALUES], ["normal", "completo"]);
+  assert.equal(
+    new Set(CANONICAL_BLOCK_PARITY.RichSection.fields).size,
+    CANONICAL_BLOCK_PARITY.RichSection.fields.length,
+    "RichSection fields duplicados",
+  );
+  for (const url of [
+    "https://cdn.example.com/hero.mp4",
+    "https://cdn.example.com/hero.webm",
+    "https://cdn.example.com/media/hero.webm?v=2",
+    "https://cdn.example.com/HERO.MP4",
+  ]) {
+    assert.equal(isValidVideoUrl(url), true, `debería aceptar ${url}`);
+  }
+});
+
+test("#4566 video_url inválida: no https, extensión no permitida, forma rota", () => {
+  for (const url of [
+    "http://cdn.example.com/hero.mp4",
+    "ftp://cdn.example.com/hero.mp4",
+    "javascript:alert(1)//hero.mp4",
+    "https://cdn.example.com/hero.mov",
+    "https://cdn.example.com/hero.mp4.exe",
+    "https://cdn.example.com/hero",
+    "https://cdn.example.com/page?file=hero.mp4",
+    "https:///hero.mp4",
+    "hero.mp4",
+    "",
+  ]) {
+    assert.equal(isValidVideoUrl(url), false, `debería rechazar ${url}`);
+  }
 });

@@ -63,6 +63,32 @@ export type ImageProps = {
  */
 export type LinkDestino = string;
 
+/**
+ * Fondo de RichSection (#4566 · hijo B de #4280). `normal` = contenedor; `completo` = full-bleed.
+ * Fuera de closed-set → default del backend + warning.
+ */
+export const RICH_SECTION_FONDO_VALUES = ["normal", "completo"] as const;
+export type RichSectionFondo = (typeof RICH_SECTION_FONDO_VALUES)[number];
+
+/** Extensiones de `video_url` de RichSection (#4566). */
+export const RICH_SECTION_VIDEO_EXTENSIONS = [".mp4", ".webm"] as const;
+
+/**
+ * `video_url` de RichSection (#4566): https + path que termina en `.mp4` o `.webm`.
+ * Pura (sin red): valida forma, no que el recurso exista. Query/hash permitidos.
+ */
+export function isValidVideoUrl(value: string): boolean {
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
+  }
+  if (url.protocol !== "https:" || !url.hostname) return false;
+  const path = url.pathname.toLowerCase();
+  return RICH_SECTION_VIDEO_EXTENSIONS.some((ext) => path.endsWith(ext));
+}
+
 export type RichSectionData = LayoutProps & TypoProps & ImageProps & {
   title?: string;
   body?: string;
@@ -74,6 +100,10 @@ export type RichSectionData = LayoutProps & TypoProps & ImageProps & {
   /** WS2 (#3883): closed-set — fuera de rango → default del backend + warning. */
   image_side?: "left" | "right";
   mode?: "split" | "centrado" | "checklist";
+  /** Fondo (#4566): closed-set `normal|completo`; fuera de rango → default del backend. */
+  fondo?: RichSectionFondo;
+  /** Video de fondo (#4566): validar con `isValidVideoUrl` (https, .mp4/.webm). */
+  video_url?: string;
 };
 
 export type GalleryImage = {
@@ -210,6 +240,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "spacing",
       "visibility",
       "anchor",
+      "fondo",
+      "video_url",
     ],
   },
   Gallery: {
