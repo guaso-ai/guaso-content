@@ -8,6 +8,8 @@ import {
   GRILLA_PARITY,
   GRILLA_PRESET_IDS,
   RICH_SECTION_FONDO_VALUES,
+  RICH_SECTION_SCALE_VALUES,
+  TYPO_SCALE_VALUES,
   TEMPLATE_IDS,
   isValidVideoUrl,
 } from "../src/schemas/index.ts";
@@ -481,4 +483,13 @@ test("#4566 video_url rechaza scheme sin // (https:host/path)", () => {
     false,
     "debería rechazar https: con una sola /",
   );
+});
+
+test("#4282 escala: 8 canónicos con 3 valores; display solo en RichSection (paridad con PY)", () => {
+  // Espejo literal de PRESENTATION_TYPO_CLOSESETS (3) y PRESENTATION_HERO_SCALE_CLOSESET (4).
+  assert.deepEqual([...TYPO_SCALE_VALUES], ["chico", "medio", "grande"]);
+  assert.deepEqual([...RICH_SECTION_SCALE_VALUES], ["chico", "medio", "grande", "display"]);
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("scale"));
+  // display no entra al closed-set uniforme de los otros 7 bloques (solo RichSection lo admite).
+  assert.ok(!(TYPO_SCALE_VALUES as readonly string[]).includes("display"));
 });

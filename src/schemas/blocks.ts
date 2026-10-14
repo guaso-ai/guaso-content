@@ -37,7 +37,16 @@ export type LayoutProps = {
  * Fuera de closed-set → default del bloque (kit) sin error de render.
  * Defaults = render actual: scale=medio, emphasis=normal; aspect RichSection 4:5 · CTA 4:3 · Gallery 4:3; frame=borde, fit=cover, focal=centro.
  */
-export type TypoScale = "chico" | "medio" | "grande";
+/** Escala tipográfica de los 8 canónicos (SoT PY: `PRESENTATION_TYPO_CLOSESETS`, 3 valores). */
+export const TYPO_SCALE_VALUES = ["chico", "medio", "grande"] as const;
+/**
+ * RichSection suma `display` = hero tipográfico (#4282 · SoT PY: `PRESENTATION_HERO_SCALE_CLOSESET`).
+ * Válido solo sin `image_url` y con `mode=centrado`; fuera de esa forma el backend normaliza a `grande`.
+ * En los otros 7 bloques `display` no es valor válido (el backend normaliza a `medio`).
+ */
+export const RICH_SECTION_SCALE_VALUES = [...TYPO_SCALE_VALUES, "display"] as const;
+export type TypoScale = (typeof TYPO_SCALE_VALUES)[number];
+export type RichSectionScale = (typeof RICH_SECTION_SCALE_VALUES)[number];
 export type TypoEmphasis = "normal" | "fuerte";
 export type ImageAspect = "4:5" | "4:3" | "1:1" | "16:9";
 export type ImageFrame = "borde" | "sin_borde" | "sombra";
