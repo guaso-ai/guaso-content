@@ -119,6 +119,10 @@ export type RichSectionData = LayoutProps & Omit<TypoProps, "scale"> & { scale?:
   fondo?: RichSectionFondo;
   /** Video de fondo (#4566): validar con `isValidVideoUrl` (https, .mp4/.webm). */
   video_url?: string;
+  /** Fuente viva de oferta (#4598): closed-set `""|"products"` (SoT PY `_BLOCK_SOURCE_CLOSESETS`); fuera de set → "" + warning. */
+  source?: "" | "products";
+  /** Slug de un ítem vivo de `source` (#4598), máx 80 chars. Texto libre en el SDK; no se valida contra products. */
+  ref?: string;
 };
 
 export type GalleryImage = {
@@ -257,6 +261,8 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "anchor",
       "fondo",
       "video_url",
+      "source",
+      "ref",
     ],
   },
   Gallery: {
