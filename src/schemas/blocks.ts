@@ -80,6 +80,13 @@ export type LinkDestino = string;
 export const RICH_SECTION_FONDO_VALUES = ["normal", "completo"] as const;
 export type RichSectionFondo = (typeof RICH_SECTION_FONDO_VALUES)[number];
 
+/**
+ * Movimiento de RichSection (#4284): `estatico` = sección normal; `marquee` = banda de `title` que se desplaza.
+ * Default `estatico`. Fuera de closed-set → default del backend + warning.
+ */
+export const RICH_SECTION_MOVIMIENTO_VALUES = ["estatico", "marquee"] as const;
+export type RichSectionMovimiento = (typeof RICH_SECTION_MOVIMIENTO_VALUES)[number];
+
 /** Extensiones de `video_url` de RichSection (#4566). */
 export const RICH_SECTION_VIDEO_EXTENSIONS = [".mp4", ".webm"] as const;
 
@@ -117,6 +124,8 @@ export type RichSectionData = LayoutProps & Omit<TypoProps, "scale"> & { scale?:
   mode?: "split" | "centrado" | "checklist";
   /** Fondo (#4566): closed-set `normal|completo`; fuera de rango → default del backend. */
   fondo?: RichSectionFondo;
+  /** Movimiento (#4284): closed-set `estatico|marquee`; fuera de rango → default `estatico` del backend. */
+  movimiento?: RichSectionMovimiento;
   /** Video de fondo (#4566): validar con `isValidVideoUrl` (https, .mp4/.webm). */
   video_url?: string;
   /** Fuente viva de oferta (#4598): closed-set `""|"products"` (SoT PY `_BLOCK_SOURCE_CLOSESETS`); fuera de set → "" + warning. */
@@ -260,6 +269,7 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "visibility",
       "anchor",
       "fondo",
+      "movimiento",
       "video_url",
       "source",
       "ref",
