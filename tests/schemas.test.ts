@@ -8,6 +8,7 @@ import {
   GRILLA_PARITY,
   GRILLA_PRESET_IDS,
   RICH_SECTION_FONDO_VALUES,
+  RICH_SECTION_MOVIMIENTO_VALUES,
   RICH_SECTION_SCALE_VALUES,
   TYPO_SCALE_VALUES,
   TEMPLATE_IDS,
@@ -398,6 +399,20 @@ test("#4566 RichSection fondo + video_url en CANONICAL_BLOCK_PARITY (camino feli
     "https://cdn.example.com/HERO.MP4",
   ]) {
     assert.equal(isValidVideoUrl(url), true, `debería aceptar ${url}`);
+  }
+});
+
+test("#4284 RichSection movimiento en CANONICAL_BLOCK_PARITY (closed-set estatico|marquee, solo RichSection)", () => {
+  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("movimiento"));
+  assert.deepEqual([...RICH_SECTION_MOVIMIENTO_VALUES], ["estatico", "marquee"]);
+  assert.equal(
+    new Set(CANONICAL_BLOCK_PARITY.RichSection.fields).size,
+    CANONICAL_BLOCK_PARITY.RichSection.fields.length,
+    "RichSection fields duplicados",
+  );
+  for (const [blockType, meta] of Object.entries(CANONICAL_BLOCK_PARITY)) {
+    if (blockType === "RichSection") continue;
+    assert.ok(!meta.fields.includes("movimiento"), `${blockType} no debería tener movimiento`);
   }
 });
 
