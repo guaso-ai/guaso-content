@@ -493,3 +493,17 @@ test("#4282 escala: 8 canónicos con 3 valores; display solo en RichSection (clo
   // display no entra al closed-set uniforme de los otros 7 bloques (solo RichSection lo admite).
   assert.ok(!(TYPO_SCALE_VALUES as readonly string[]).includes("display"));
 });
+
+test("#4598 RichSection source/ref en CANONICAL_BLOCK_PARITY (paridad PY _CANONICAL_BLOCKS)", () => {
+  const fields = CANONICAL_BLOCK_PARITY.RichSection.fields;
+  assert.ok(fields.includes("source"), "falta source en RichSection");
+  assert.ok(fields.includes("ref"), "falta ref en RichSection");
+  assert.equal(
+    new Set(fields).size,
+    fields.length,
+    "RichSection fields duplicados",
+  );
+  // Gallery mantiene su propio source (no se contamina con ref de RichSection).
+  assert.ok(CANONICAL_BLOCK_PARITY.Gallery.fields.includes("source"));
+  assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.fields.includes("ref"));
+});
