@@ -311,7 +311,7 @@ test("#3884 WS3 CTA variants en PARITY", () => {
   ]);
 });
 
-test("#4345 props comunes de layout en los 10 bloques canónicos (paridad con PY)", () => {
+test("#4345 props comunes de layout en los 11 bloques canónicos (paridad con PY)", () => {
   const LAYOUT_PROPS = ["surface", "width", "spacing", "visibility", "anchor"];
   assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 11);
   for (const [blockType, meta] of Object.entries(CANONICAL_BLOCK_PARITY)) {
