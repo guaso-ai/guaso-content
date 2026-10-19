@@ -12,7 +12,8 @@ export type CanonicalBlockType =
   | "Stats"
   | "Steps"
   | "Planes"
-  | "BeforeAfter";
+  | "BeforeAfter"
+  | "Timeline";
 
 /**
  * Props comunes de layout (#4345 · SoT PY: `LAYOUT_PROP_CLOSESETS` / `LAYOUT_PROP_DEFAULTS`
@@ -253,6 +254,19 @@ export type PlansData = LayoutProps & TypoProps & {
   plans?: PlanItem[];
 };
 
+/** Línea de tiempo (#4686): hito = fecha + título + texto (kit `registry/timeline`; hito válido exige los tres). */
+export type TimelineItem = {
+  /** Fecha como texto libre (PY `items.date` ≤20). El kit no la parsea ni ordena. */
+  date?: string;
+  title?: string;
+  text?: string;
+};
+
+export type TimelineData = LayoutProps & TypoProps & {
+  title?: string;
+  items?: TimelineItem[];
+};
+
 /**
  * Antes y después (#4683). Las URLs son runtime/upload (PY `image_fields` → `before_url`/`after_url`);
  * van en `fields` del fingerprint como `CTA.image_url`. Sin repeatable.
@@ -388,6 +402,19 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "anchor",
     ],
     repeatable: { plans: ["name", "price"] },
+  },
+  Timeline: {
+    fields: [
+      "title",
+      "scale",
+      "emphasis",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
+    repeatable: { items: ["date", "title", "text"] },
   },
   BeforeAfter: {
     fields: [

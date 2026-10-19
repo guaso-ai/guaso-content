@@ -39,7 +39,7 @@ test("TEMPLATE_IDS has 9 canonical templates", () => {
   ]);
 });
 
-test("CANONICAL_BLOCK_PARITY has 10 block types", () => {
+test("CANONICAL_BLOCK_PARITY has 11 block types", () => {
   const keys = Object.keys(CANONICAL_BLOCK_PARITY).sort();
   assert.deepEqual(keys, [
     "BeforeAfter",
@@ -52,6 +52,7 @@ test("CANONICAL_BLOCK_PARITY has 10 block types", () => {
     "Stats",
     "Steps",
     "Testimonials",
+    "Timeline",
   ]);
   assert.ok(!CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images.includes("url"));
   assert.deepEqual(CANONICAL_BLOCK_PARITY.Gallery.fields, [
@@ -312,7 +313,7 @@ test("#3884 WS3 CTA variants en PARITY", () => {
 
 test("#4345 props comunes de layout en los 10 bloques canónicos (paridad con PY)", () => {
   const LAYOUT_PROPS = ["surface", "width", "spacing", "visibility", "anchor"];
-  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 10);
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 11);
   for (const [blockType, meta] of Object.entries(CANONICAL_BLOCK_PARITY)) {
     for (const prop of LAYOUT_PROPS) {
       assert.ok(meta.fields.includes(prop), `${blockType} sin prop de layout ${prop}`);
@@ -370,7 +371,7 @@ test("#4306 Grilla presets por id y proporción por hijo (sin duplicar anchos)",
 
 test("#4306 Grilla fuera de CANONICAL_BLOCK_PARITY (paridad guard = _CANONICAL_BLOCKS)", () => {
   assert.equal("Grilla" in CANONICAL_BLOCK_PARITY, false);
-  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 10);
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 11);
 });
 
 test("#4683 BeforeAfter en PARITY: URLs como fields, sin repeatable, props de layout/tipo/imagen", () => {
@@ -394,6 +395,22 @@ test("#4683 BeforeAfter en PARITY: URLs como fields, sin repeatable, props de la
     "width",
   ]);
   assert.equal(new Set(meta.fields).size, meta.fields.length, "BeforeAfter fields duplicados");
+});
+
+test("#4686 Timeline en PARITY: title + layout/tipo, items repeatable date/title/text", () => {
+  const meta = CANONICAL_BLOCK_PARITY.Timeline;
+  assert.deepEqual(meta.repeatable, { items: ["date", "title", "text"] });
+  assert.deepEqual([...meta.fields].sort(), [
+    "anchor",
+    "emphasis",
+    "scale",
+    "spacing",
+    "surface",
+    "title",
+    "visibility",
+    "width",
+  ]);
+  assert.equal(new Set(meta.fields).size, meta.fields.length, "Timeline fields duplicados");
 });
 
 test("dist schemas present after build (optional)", () => {
