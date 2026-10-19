@@ -13,7 +13,8 @@ export type CanonicalBlockType =
   | "Steps"
   | "Planes"
   | "BeforeAfter"
-  | "Timeline";
+  | "Timeline"
+  | "Menu";
 
 /**
  * Props comunes de layout (#4345 · SoT PY: `LAYOUT_PROP_CLOSESETS` / `LAYOUT_PROP_DEFAULTS`
@@ -256,6 +257,29 @@ export type TimelineData = LayoutProps & TypoProps & {
 };
 
 /**
+ * Menú por categorías (#4737, hijo de #4685). Repeatable anidado: `categories[]` → `items[]`.
+ * Hojas en `CANONICAL_BLOCK_PARITY.Menu` con ruta relativa al ítem de `categories`
+ * (`name`, `items.name`, `items.price`). Precio como texto libre (kit `registry/menu`).
+ */
+export type MenuItem = {
+  /** Nombre del plato (PY `categories.items.name` ≤80). */
+  name?: string;
+  /** Precio como texto libre (PY `categories.items.price` ≤40). */
+  price?: string;
+};
+
+export type MenuCategory = {
+  /** Rótulo del tab (PY `categories.name` ≤40). */
+  name?: string;
+  items?: MenuItem[];
+};
+
+export type MenuData = LayoutProps & TypoProps & {
+  title?: string;
+  categories?: MenuCategory[];
+};
+
+/**
  * Antes y después (#4683). Las URLs son runtime/upload (PY `image_fields` → `before_url`/`after_url`);
  * van en `fields` del fingerprint como `CTA.image_url`. Sin repeatable.
  */
@@ -401,6 +425,20 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "anchor",
     ],
     repeatable: { items: ["date", "title", "text"] },
+  },
+  /** Repeatable anidado (#4737): `categories` declara hojas relativas a cada categoría; `items.*` = sub-array. */
+  Menu: {
+    fields: [
+      "title",
+      "scale",
+      "emphasis",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
+    repeatable: { categories: ["name", "items.name", "items.price"] },
   },
   BeforeAfter: {
     fields: [

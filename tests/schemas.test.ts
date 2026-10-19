@@ -39,7 +39,7 @@ test("TEMPLATE_IDS has 9 canonical templates", () => {
   ]);
 });
 
-test("CANONICAL_BLOCK_PARITY has 11 block types", () => {
+test("CANONICAL_BLOCK_PARITY has 12 block types", () => {
   const keys = Object.keys(CANONICAL_BLOCK_PARITY).sort();
   assert.deepEqual(keys, [
     "BeforeAfter",
@@ -47,6 +47,7 @@ test("CANONICAL_BLOCK_PARITY has 11 block types", () => {
     "Cards",
     "FAQ",
     "Gallery",
+    "Menu",
     "Planes",
     "RichSection",
     "Stats",
@@ -312,9 +313,9 @@ test("#3884 WS3 CTA variants en PARITY", () => {
   ]);
 });
 
-test("#4345 props comunes de layout en los 11 bloques canónicos (paridad con PY)", () => {
+test("#4345 props comunes de layout en los 12 bloques canónicos (paridad con PY)", () => {
   const LAYOUT_PROPS = ["surface", "width", "spacing", "visibility", "anchor"];
-  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 11);
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 12);
   for (const [blockType, meta] of Object.entries(CANONICAL_BLOCK_PARITY)) {
     for (const prop of LAYOUT_PROPS) {
       assert.ok(meta.fields.includes(prop), `${blockType} sin prop de layout ${prop}`);
@@ -372,7 +373,7 @@ test("#4306 Grilla presets por id y proporción por hijo (sin duplicar anchos)",
 
 test("#4306 Grilla fuera de CANONICAL_BLOCK_PARITY (paridad guard = _CANONICAL_BLOCKS)", () => {
   assert.equal("Grilla" in CANONICAL_BLOCK_PARITY, false);
-  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 11);
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 12);
 });
 
 test("#4683 BeforeAfter en PARITY: URLs como fields, sin repeatable, props de layout/tipo/imagen", () => {
@@ -412,6 +413,22 @@ test("#4686 Timeline en PARITY: title + layout/tipo, items repeatable date/title
     "width",
   ]);
   assert.equal(new Set(meta.fields).size, meta.fields.length, "Timeline fields duplicados");
+});
+
+test("#4737 Menu en PARITY: title + layout/tipo, categories repeatable con hojas anidadas relativas", () => {
+  const meta = CANONICAL_BLOCK_PARITY.Menu;
+  assert.deepEqual(meta.repeatable, { categories: ["name", "items.name", "items.price"] });
+  assert.deepEqual([...meta.fields].sort(), [
+    "anchor",
+    "emphasis",
+    "scale",
+    "spacing",
+    "surface",
+    "title",
+    "visibility",
+    "width",
+  ]);
+  assert.equal(new Set(meta.fields).size, meta.fields.length, "Menu fields duplicados");
 });
 
 test("dist schemas present after build (optional)", () => {
