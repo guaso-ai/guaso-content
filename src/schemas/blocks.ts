@@ -10,7 +10,8 @@ export type CanonicalBlockType =
   | "CTA"
   | "FAQ"
   | "Stats"
-  | "Steps";
+  | "Steps"
+  | "Planes";
 
 /**
  * Props comunes de layout (#4345 · SoT PY: `LAYOUT_PROP_CLOSESETS` / `LAYOUT_PROP_DEFAULTS`
@@ -238,6 +239,19 @@ export type StepsData = LayoutProps & TypoProps & {
   steps?: StepItem[];
 };
 
+export type PlanItem = {
+  /** Nombre del plan (PY `plans.name` ≤80). */
+  name?: string;
+  /** Precio como texto libre (PY `plans.price` ≤40). */
+  price?: string;
+};
+
+/** Tabla de precios (#4684). `highlighted` fuera del schema en v1. */
+export type PlansData = LayoutProps & TypoProps & {
+  title?: string;
+  plans?: PlanItem[];
+};
+
 /**
  * Fingerprint for drift guard — field keys (+ image_fields values + repeatable
  * inner keys). Gallery `url` is runtime-only and must NOT appear here.
@@ -349,6 +363,19 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "visibility",
       "anchor",
     ],
+  },
+  Planes: {
+    fields: [
+      "title",
+      "scale",
+      "emphasis",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+    ],
+    repeatable: { plans: ["name", "price"] },
   },
   FAQ: {
     fields: [

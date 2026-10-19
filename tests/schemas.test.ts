@@ -39,13 +39,14 @@ test("TEMPLATE_IDS has 9 canonical templates", () => {
   ]);
 });
 
-test("CANONICAL_BLOCK_PARITY has 8 block types", () => {
+test("CANONICAL_BLOCK_PARITY has 9 block types", () => {
   const keys = Object.keys(CANONICAL_BLOCK_PARITY).sort();
   assert.deepEqual(keys, [
     "CTA",
     "Cards",
     "FAQ",
     "Gallery",
+    "Planes",
     "RichSection",
     "Stats",
     "Steps",
@@ -308,9 +309,9 @@ test("#3884 WS3 CTA variants en PARITY", () => {
   ]);
 });
 
-test("#4345 props comunes de layout en los 8 bloques canónicos (paridad con PY)", () => {
+test("#4345 props comunes de layout en los 9 bloques canónicos (paridad con PY)", () => {
   const LAYOUT_PROPS = ["surface", "width", "spacing", "visibility", "anchor"];
-  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 8);
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 9);
   for (const [blockType, meta] of Object.entries(CANONICAL_BLOCK_PARITY)) {
     for (const prop of LAYOUT_PROPS) {
       assert.ok(meta.fields.includes(prop), `${blockType} sin prop de layout ${prop}`);
@@ -368,7 +369,7 @@ test("#4306 Grilla presets por id y proporción por hijo (sin duplicar anchos)",
 
 test("#4306 Grilla fuera de CANONICAL_BLOCK_PARITY (paridad guard = _CANONICAL_BLOCKS)", () => {
   assert.equal("Grilla" in CANONICAL_BLOCK_PARITY, false);
-  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 8);
+  assert.equal(Object.keys(CANONICAL_BLOCK_PARITY).length, 9);
 });
 
 test("dist schemas present after build (optional)", () => {
