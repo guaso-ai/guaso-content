@@ -278,12 +278,14 @@ test("#4265 Gallery: source en fields y ref en items (sin url en PY)", () => {
   assert.deepEqual(CANONICAL_BLOCK_PARITY.Gallery.repeatable?.images, ["alt", "caption", "ref"]);
 });
 
-test("#4267 links tipados: hojas *_destino en PARITY, legacy *_url conviven", () => {
-  assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("cta_destino"));
+test("#4705 sin hojas *_destino en PARITY, legacy *_url siguen", () => {
+  for (const f of ["cta_destino", "button_destino"]) {
+    assert.ok(!CANONICAL_BLOCK_PARITY.RichSection.fields.includes(f));
+    assert.ok(!CANONICAL_BLOCK_PARITY.CTA.fields.includes(f));
+  }
+  assert.ok(!CANONICAL_BLOCK_PARITY.Cards.repeatable?.cards.includes("link_destino"));
   assert.ok(CANONICAL_BLOCK_PARITY.RichSection.fields.includes("cta_url"));
-  assert.ok(CANONICAL_BLOCK_PARITY.CTA.fields.includes("button_destino"));
   assert.ok(CANONICAL_BLOCK_PARITY.CTA.fields.includes("button_url"));
-  assert.ok(CANONICAL_BLOCK_PARITY.Cards.repeatable?.cards.includes("link_destino"));
   assert.ok(CANONICAL_BLOCK_PARITY.Cards.repeatable?.cards.includes("link_url"));
 });
 
@@ -292,7 +294,6 @@ test("#3884 WS3 CTA variants en PARITY", () => {
     "align",
     "anchor",
     "aspect",
-    "button_destino",
     "button_label",
     "button_url",
     "emphasis",
