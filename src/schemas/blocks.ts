@@ -11,7 +11,8 @@ export type CanonicalBlockType =
   | "FAQ"
   | "Stats"
   | "Steps"
-  | "Planes";
+  | "Planes"
+  | "BeforeAfter";
 
 /**
  * Props comunes de layout (#4345 · SoT PY: `LAYOUT_PROP_CLOSESETS` / `LAYOUT_PROP_DEFAULTS`
@@ -253,6 +254,17 @@ export type PlansData = LayoutProps & TypoProps & {
 };
 
 /**
+ * Antes y después (#4683). Las URLs son runtime/upload (PY `image_fields` → `before_url`/`after_url`);
+ * van en `fields` del fingerprint como `CTA.image_url`. Sin repeatable.
+ */
+export type BeforeAfterData = LayoutProps & TypoProps & ImageProps & {
+  before_label?: string;
+  after_label?: string;
+  before_url?: string;
+  after_url?: string;
+};
+
+/**
  * Fingerprint for drift guard — field keys (+ image_fields values + repeatable
  * inner keys). Gallery `url` is runtime-only and must NOT appear here.
  */
@@ -376,6 +388,25 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "anchor",
     ],
     repeatable: { plans: ["name", "price"] },
+  },
+  BeforeAfter: {
+    fields: [
+      "before_url",
+      "after_url",
+      "before_label",
+      "after_label",
+      "surface",
+      "width",
+      "spacing",
+      "visibility",
+      "anchor",
+      "scale",
+      "emphasis",
+      "aspect",
+      "frame",
+      "fit",
+      "focal",
+    ],
   },
   FAQ: {
     fields: [
