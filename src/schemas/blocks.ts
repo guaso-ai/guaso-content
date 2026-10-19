@@ -70,13 +70,6 @@ export type ImageProps = {
 };
 
 /**
- * Destino tipado de un link (#4267). Formato `pagina:<slug>` | `producto:<slug>` | `externo:<url>`,
- * máx 520 chars. Convive con la hoja legacy `*_url` (fallback del kit mientras dure la migración).
- * Validación de páginas contra el gate de secciones (#4246) = SoT PY (`content_editor_service.py`).
- */
-export type LinkDestino = string;
-
-/**
  * Fondo de RichSection (#4566 · hijo B de #4280). `normal` = contenedor; `completo` = full-bleed.
  * Fuera de closed-set → default del backend + warning.
  */
@@ -119,7 +112,6 @@ export type RichSectionData = LayoutProps & Omit<TypoProps, "scale"> & { scale?:
   body?: string;
   cta_label?: string;
   cta_url?: string;
-  cta_destino?: LinkDestino;
   align?: "left" | "center";
   image_url?: string;
   /** WS2 (#3883): closed-set — fuera de rango → default del backend + warning. */
@@ -165,8 +157,6 @@ export type CardItem = {
   text?: string;
   link_label?: string;
   link_url?: string;
-  /** Destino tipado (#4267); ver `LinkDestino`. */
-  link_destino?: LinkDestino;
 };
 
 export type CardsData = LayoutProps & TypoProps & {
@@ -200,8 +190,6 @@ export type CTAData = LayoutProps & TypoProps & ImageProps & {
   subtext?: string;
   button_label?: string;
   button_url?: string;
-  /** Destino tipado (#4267); ver `LinkDestino`. */
-  button_destino?: LinkDestino;
   /** WS3 (#3884): closed-set — fuera de rango → default del backend + warning. */
   style?: "banda" | "foto" | "split";
   align?: "left" | "center" | "right";
@@ -292,7 +280,6 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "body",
       "cta_label",
       "cta_url",
-      "cta_destino",
       "align",
       "image_url",
       "image_side",
@@ -351,7 +338,7 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "visibility",
       "anchor",
     ],
-    repeatable: { cards: ["heading", "text", "link_label", "link_url", "link_destino"] },
+    repeatable: { cards: ["heading", "text", "link_label", "link_url"] },
   },
   Testimonials: {
     fields: [
@@ -373,7 +360,6 @@ export const CANONICAL_BLOCK_PARITY: Record<
       "subtext",
       "button_label",
       "button_url",
-      "button_destino",
       "style",
       "align",
       "image_url",
